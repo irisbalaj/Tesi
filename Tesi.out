@@ -2,7 +2,28 @@
 \BOOKMARK [2][-]{subsection.1.1}{L'Azienda}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Obiettivi di stage}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Principali problematiche}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{Analisi e Requisiti}{}% 5
-\BOOKMARK [1][-]{section.3}{Ambiente di Sviluppo}{}% 6
-\BOOKMARK [1][-]{section.4}{Sviluppo}{}% 7
-\BOOKMARK [1][-]{section.5}{Valutazione Retrospettiva}{}% 8
+\BOOKMARK [1][-]{section.2}{Analisi e Pianificazione}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Riunione}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Piano di Lavoro}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Studio delle Tecnologie}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Stealth 3000}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Soggetto}{subsection.3.1}% 10
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Condizioni Commerciali}{subsection.3.1}% 11
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Modelli}{subsection.3.1}% 12
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Parti}{subsection.3.1}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Modelli-Parte}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.6}{Listini}{subsection.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Oracle PL/SQL Developer}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Scrittura di un programma PL/SQL}{subsection.3.2}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Debug di un programma}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Piano di esecuzione}{subsection.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.3}{Oracle Reports}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.4}{Tecnologia per l'aggiornamento}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Sviluppo}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Sviluppo programma di export}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Sviluppo programma di import}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.3}{Creazione report di import}{section.4}% 25
+\BOOKMARK [1][-]{section.5}{Valutazione Retrospettiva}{}% 26
+\BOOKMARK [2][-]{subsection.5.1}{Obiettivi raggiunti}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.2}{Difficolt\340 incontrate}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.3}{Bilancio Formativo}{section.5}% 29

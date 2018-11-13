@@ -4,8 +4,9 @@ La maggior parte delle aziende tessili di larga scala in Italia utilizza un ERP 
 In quanto ERP connette tutti gli applicativi utilizzati dall'azienda, oltre ad essere un gestionale disegnato specificatamente per il mercato della moda. \\
 Si tratta di un'applet Java, accessibile solo internamente all'azienda da Internet Explorer e Firefox.\\
 Di seguito verrà illustrato il funzionamento di Stealth 3000 negli ambiti che sono stati toccati dal progetto CRM, che sono solo una minima parte di quanto offerto dall'ERP. Gli ambiti in questione sono i Soggetti, ovvero i clienti in generale, e le loro condizioni commerciali, gli oggetti e le loro classificazioni, ovvero gli articoli che vengono venduti ed infine i listini di vendita.\\
-\begin{itemize}
-\item \textbf{Soggetto}
+Tutti i contenuti anagrafici dei dati rappresentati sono fittizi, ottenuti dai manuali d'uso a scopo formativo.
+
+\subsubsection{Soggetto}
 Sono una qualunque entità fisica, giuridica, gestionale, organizzativa con cui l'azienda intrattiene rapporti di business.\\
 Esempi di Soggetti sono: Clienti, Fornitori, Agenti,Terzisti, Importatori, Distribution Centers, Reparti interni.\\
 L'archivio dei soggetti ne contiene i dati anagrafici fissi nel tempo (Ragione Sociale, Partita IVA, Indirizzo, ecc). Il soggetto ha una lista di indirizzi associati che ne definiscono punti di riferimento, ad esempio potrebbe avere un indirizzo di fatturazione ed un indirizzo di spedizione diversi tra loro.\\
@@ -80,31 +81,46 @@ Dati Generali:
 
 \end{longtable}
 
-\item \textbf{Condizioni Commerciali}
+\subsubsection{Condizioni Commerciali}
 Panoramica Condizioni Commerciali
-\item \textbf{Modelli}
+\subsubsection{Modelli}
 Panoramica Modelli
-\item \textbf{Parti}
+\subsubsection{Parti}
 Panoramica Parti
-\item \textbf{Modelli-Parte}
+\subsubsection{Modelli-Parte}
 Panoramica Modelli-Parte
-\item \textbf{Listini}
+\subsubsection{Listini}
 Panoramica Listini
-\end{itemize}
+
 
 \subsection{Oracle PL/SQL Developer}
 PL/SQL Developer è un IDE creato per sviluppare unità di programma memorizzato in un database Oracle.\\
 SQL nasce come linguaggio per interrogazioni ad un database, che siano di estrazione o modifica dati, ma non permette di manipolare i dati in maniera estensiva, caratteristica invece di un linguaggio procedurale; istruzioni condizionali (IF ELSE) e cicli di iterazione, oltre a creazione di variabili sono le fondamenta alla base di programmi ed algoritmi complessi, ed è questo il vantaggio di PL/SQL.\\
 \subsubsection{Scrittura di un programma PL/SQL}
-
+PL/SQL permette di creare script principalmente come funzioni, procedure oppure package che le contengono. Tutte le unità di programma sono accessibili da altre funzioni all'interno dello stesso database se appartengono allo stesso utente di accesso.\\
+Il codice PL/SQL ha una struttura specifica, organizzata a "blocchi" nel formato:\\ \textbf{BEGIN}\newline [content] \\ \textbf{exception}\newline [exception handling]\\ \textbf{END};\\ questo formato viene utilizzato all'interno di procedure e funzioni, e permette di utilizzare i costrutti di base dei linguaggi procedurali, come i cicli (for, while...) e istruzioni condizionali, oltre alla manipolazione delle variabili. Queste sono dichiarabili solo alla definizione di un programma, in una sezione presente appena dopo aver scritto il nome di una funzione o procedura, ma prima del comando \textbf{BEGIN}, nel formato\\ \textbf{Procedure/Function} <Nome procedura o funzione>(parametri) \textbf{IS}\newline [elenco variabili]\\ \textbf{BEGIN}\newline [content]\\ \textbf{exception}\newline [exception handling]\\ \textbf{END Nome procedura o funzione};\\ le variabili sono visibili solo all'interno del blocco in cui sono dichiarate, in particolare le variabili dichiarate internamente ad una funzione sono visibili solo all'interno di essa, mentre le variabili definite all'interno del package sono visibili a tutte le funzioni contenute in esso, e vengono definite \textbf{globali}.\\
+Oltre alle variabili standard tipiche di altri linguaggi procedurali, una delle caratteristiche sicuramente più utili di PL/SQL è quella di poter creare dei \textbf{cursor}; questi sono una dichiarazione di una query di selezione che poi potrà essere eseguita all'interno del programma ed il suo contenuto analizzato, tramite in comando \textbf{fetch}, il quale estrae una riga ed in successione le altre ogni volta che viene chiamato. Il contenuto del cursore può essere estratto in \textit{n} variabili a seconda delle colonne generate dalla query, oppure in una variabile di tipo \textit{nome\_cursore}\textbf{\%rowtype} dalla quale è possibile estrarre ogni campo della riga del cursore scrivendo \textit{nome\_rowtype}.\textit{nome\_campo}.\\
+Image
+refcursor[...]
+Image
+L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.
+[...]
+Image
 \subsubsection{Debug di un programma}
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textit{debug} di una funzione o di un intero package. 
+[...]
 
+\subsubsection{Piano di esecuzione}
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzarepiano di esecuzione di una query per poterne analizzare i punti critici. 
+[...]
+Image
 
 \subsection{Oracle Reports}
 Uno degli strumenti utilizzati dall'azienda fortemente collegato al database Oracle, è Oracle Reports, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
 Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.
-[...] Panoramica Oracle Reports e studio della piattaforma
+[...] Breve Panoramica Oracle Reports e studio della piattaforma
 
 \subsection{Tecnologia per l'aggiornamento}
-Le possibilità per l'aggiornamento del programma erano limitate già di partenza. Senza utilizzare software di terze parti, dei quali ovviamente sarebbe necessaria una licenza, la scelta ricadeva sulla produzione di un prototipo utilizzando i DbLink.\\
-I DbLink sono uno strumento messo a disposizione da Oracle per la comunicazione fra due database distinti. Sono molto comodi in caso i due databse siano dello stesso tipo (es. Oracle - Oralce) ma sono necessarie delle misure particolari in caso i due sistemi siano di tipo diverso, come nel caso del progetto CRM, in cui il databse di origine è Oracle mentre quello di destinazione è Sql Server
+I Database Link sono uno strumento messo a disposizione da Oracle per la comunicazione unidirezionale verso un altro database server, sotto forma di puntatori salvati come record all'interno di una Data Dictionary Table, ovvero tabelle di sola lettura che forniscono informazioni sul database. La comunicazione è unidirezionale nel senso che se un database Oracle possiede un dblink verso un altro database, non significa che dal database di destinazione si possa accedere al database Oracle.\\
+Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{global database name} all'interno del dominio di rete.
+[...]

@@ -4,109 +4,135 @@
 La versione iniziale del programma di export è stata sviluppata nel 2007 da uno dei programmatori attualmente presenti in azienda e si basa sulla creazione di file di testo che vengono inviati al fornitore, perché si occupi di caricare i database degli showroom della campagna vendite.\\
 Dato che la decisione per l'upgrade è stata quella di utilizzare dei DbLink, sotto consiglio del tutor aziendale il primo passo è stato creare una copia esatta delle tabelle dei database di destinazione, all'interno del database di sviluppo, sul quale è stato sviluppato il prototipo. Il motivo della copia è che al momento della scrittura remota tramite dblink sarebbe stato molto più semplice fare un riversamento del contenuto di una tabella all'interno di un'altra, ed in puù in questo modo si ha una versione di backup locale dei dati, in modo che se ci dovessero essere errori nel trasferimento, utilizzando i vari sistemi di tracciamento adottati, che vedremo in seguito nello specifico, si può correggere facilmente ogni problematica. Inoltre in un sistema Eterogeneo (ovvero collegamento fra database server di tipo diverso, Oracle to Sql Server) non si possono eseguire manipolazioni dei dati all'interno delle query di inserimento, come ad esempio conversioni o formattazioni, che vengono quindi anticipate alla fase di caricamento nella parte locale.\\
 Una volta create tutte le tabelle locali, il passo successivo è stato prendere spunto dalle query del programma esistente ed ottenere tutti i dati necessari a ricreare le nuove query, con alcune modifiche proposte dai service manager, per popolarle. L'esecuzione del programma prevede anche degli input che talvolta possono essere facoltativi, ma la loro presenza va considerata all'interno delle query e ciò comporta l'utilizzo dei \textbf{refcursor} per permettere una parametrizzazione della query.\\
-Durante il popolamento della tabella locale, viene valorizzato il campo di log \"Data\_modifica\" che verrà in seguito utilizzato per capire quali dati riversare nel database remoto, confrontandola con la data impostata all'inizio di esecuzione del programma.
+Durante il popolamento della tabella locale, viene valorizzato il campo di log 'Data\_modifica' che verrà in seguito utilizzato per capire quali dati riversare nel database remoto, confrontandola con la data impostata all'inizio di esecuzione del programma.
 Di seguito vediamo la porzione di codice che mostra il percorso di estrazione dati, popolamento della tabella locale ed infine popolamento della tabella remota relativa ai Modelli-Colore, ovvero i dati anagrafici dei Modelli-Parte con l'aggiunta dei colori abilitati agli eventi specificati nella schedulazione del programma.\\
 
 \begin{lstlisting}
 v_query :=
  'Select Distinct
-  t.annullato,' || chr(10) ||
-'substr(t.cd_stagiov,1,4) mod_annorif ,' || chr(10) ||
-'Substr(t.cd_stagiov,5,1) mod_codsta ,' || chr(10) ||
-'t.cd_linea mod_codlin ,' || chr(10) ||
-'substr(t.cd_linea,1,2) mod_codmar ,' || chr(10) ||
-'t.cd_modello mod_codmod ,' || chr(10) ||
-'t.cd_varia mod_codvar ,' || chr(10) ||
-'t.cd_ana cd_ana,' || chr(10) ||
-'t.cd_artico mod_codart ,' || chr(10) ||
-'t.carco mod_codcarco,' || chr(10) ||
-'t.modparid mod_mod_par_id ,' || chr(10) ||
-'t.modid mod_mod_id ,' || chr(10) ||
-'t.parid mod_par_id ,' || chr(10) ||
-'view_col.co_cod' || chr(10) ||
+  t.annullato,' ||
+'substr(t.cd_stagiov,1,4) mod_annorif ,' ||
+'Substr(t.cd_stagiov,5,1) mod_codsta ,' ||
+'t.cd_linea mod_codlin ,' ||
+'substr(t.cd_linea,1,2) mod_codmar ,' ||
+'t.cd_modello mod_codmod ,' ||
+'t.cd_varia mod_codvar ,' ||
+'t.cd_ana cd_ana,' ||
+'t.cd_artico mod_codart ,' ||
+'t.carco mod_codcarco,' ||
+'t.modparid mod_mod_par_id ,' ||
+'t.modid mod_mod_id ,' ||
+'t.parid mod_par_id ,' ||
+'view_col.co_cod' ||
 
 'From pindt_ext_modart_crm t, 
-         (select co.stg_col_ogg_soc_cod co_ogg_soc_cod,' || chr(10) ||
-'                    co.stg_col_col_cod         co_cod,' || chr(10) ||
-'                    co.stg_col_data_mod     co_data_mod,' || chr(10) ||
-'                    co.stg_col_ogg_id       ogg_id' || chr(10) ||
-'           from s3t_stg_col co' || chr(10) ||
-'UNION' || chr(10) ||
-'            select  colc.stg_col_ogg_soc_cod      co_ogg_soc_cod,' || chr(10) ||
-'                       colc.stg_col_col_cod          co_cod,' || chr(10) ||
-'                       colc.stg_col_data_canc        co_data_mod,' || chr(10) ||
-'                       colc.stg_col_ogg_id           ogg_id' || chr(10) ||
-'              from ppprtt_stg_col colc' || chr(10) ||
-'            ) view_col' || chr(10) ||
+(
+select co.stg_col_ogg_soc_cod   co_ogg_soc_cod,'|| 
+'co.stg_col_col_cod    co_cod,' ||
+'co.stg_col_data_mod   co_data_mod,' ||
+'co.stg_col_ogg_id   ogg_id' ||
 
-'Where  t.modparid = view_col.ogg_id' || chr(10) ||
-'    AND ((to_char(t.dataupd,''YYYY/MM/DD HH24:MI:SS'') > '''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||'''' || chr(10) ||
-'             OR' || chr(10) ||
-'               to_char(view_col.co_data_mod,''YYYY/MM/DD HH24:MI:SS'') > '''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||''')' || chr(10) ||
-'             or' || chr(10) ||
-'             exists (select 1 from s3t_opb' || chr(10) ||
-'                        where opb_mod_id = t.modid' || chr(10) ||
-'                           and nvl(opb_f_annu,''0'') = ''0''' || chr(10) ||
-'                           and to_char(opb_data_mod,''YYYY/MM/DD HH24:MI:SS'') > '''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||'''))' || chr(10) ||
-'   AND t.carco IS NOT NULL' || chr(10) ||
-'    And substr(t.cd_stagiov,1,4) ||''/''|| Substr(t.cd_stagiov,5,1) = '''||P_STG_ATT||''' ' || chr(10) ||
+'from s3t_stg_col co' ||
+
+'UNION' ||
+' select  colc.stg_col_ogg_soc_cod  co_ogg_soc_cod,' ||
+'          colc.stg_col_col_cod   co_cod,' ||
+'          colc.stg_col_data_canc  co_data_mod,' ||
+'          colc.stg_col_ogg_id   ogg_id' ||
+
+'from ppprtt_stg_col colc' ||
+
+') view_col' ||
+
+'Where  t.modparid = view_col.ogg_id' ||
+'AND ((to_char(t.dataupd,''YYYY/MM/DD HH24:MI:SS'') > 
+'''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||'''||' 
+'        OR' ||
+' to_char(view_col.co_data_mod,''YYYY/MM/DD HH24:MI:SS'') > 
+'''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||''')'|| 
+'       OR' ||
+' exists (select 1 from s3t_opb' ||
+'where opb_mod_id = t.modid' ||
+'  and nvl(opb_f_annu,''0'') = ''0''' ||
+'and to_char(opb_data_mod,''YYYY/MM/DD HH24:MI:SS'') > 
+'''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||'''))' ||
+'   AND t.carco IS NOT NULL' ||
+'    And substr(t.cd_stagiov,1,4) ||''/''||
+    Substr(t.cd_stagiov,5,1) = '''||P_STG_ATT||''' '|| 
 '    and t.societa = '''||s3ksysglobal.Soc_Ute||''' ';
 
 IF v_mrc_lis IS NOT NULL THEN
-   v_query := v_query || ' And Substr(t.cd_linea,1,2) in ('''||v_mrc_lis||''')';
+   v_query := v_query ||
+ '  And Substr(t.cd_linea,1,2) in ('''||v_mrc_lis||''')';
 END IF;
 IF v_lnv IS NOT NULL THEN
-    v_query := v_query || ' And t.cd_linea in ('''||v_lnv||''')';
+    v_query := v_query || 
+      ' And t.cd_linea in ('''||v_lnv||''')';
     
   END IF;
   
-  v_query := v_query || ' UNION' || chr(10) ||
-'              select DISTINCT mp.ogg_f_annu,' || chr(10) ||
-'                              substr(mp.ogg_stg_anno,1,4),' || chr(10) ||
-'                              substr(mp.ogg_stg_cod,1,1),' || chr(10) ||
-'                              s.ogg_soc_lin_cod,' || chr(10) ||
-'                              substr(s.ogg_soc_lin_cod,1,2),' || chr(10) ||
-'                              substr(m.ogg_cod,6,5),' || chr(10) ||
-'                              substr(m.ogg_cod,11,2),' || chr(10) ||
-'                              substr(m.ogg_cod,1,5),' || chr(10) ||
-'                              p.ogg_cod,' || chr(10) ||
-'                              substr(mp.dagg_num5,1,3),' || chr(10) ||
-'                              mp.ogg_id,' || chr(10) ||
-'                              m.ogg_id,' || chr(10) ||
-'                              p.ogg_id,' || chr(10) ||
-'                              b.opb_col_cod' || chr(10) ||
-'               from pindt_ext_modart_crm t, s3t_opb b, s3t_ogg mp, s3t_ogg m, s3t_ogg p, s3t_ogg_soc s' || chr(10) ||
-'              where t.modid  (+)= b.opb_mod_id' || chr(10) ||
-'                and t.parid  (+)= b.opb_par_id' || chr(10) ||
-'                and t.societa(+)= b.opb_soc_cod' || chr(10) ||
-'                and to_char(b.opb_data_mod,''YYYY/MM/DD HH24:MI:SS'') > '''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||'''' || chr(10) ||
-'                and t.cd_modello IS NULL' || chr(10) ||
-'                and mp.ogg_tipo = ''5''' || chr(10) ||
-'                and mp.ogg_soc_cod = b.opb_ogg_soc_cod' || chr(10) ||
-'                and mp.ogg_mod_id = b.opb_mod_id' || chr(10) ||
-'                and mp.ogg_par_id = b.opb_par_id' || chr(10) ||
-'                and m.ogg_tipo = ''1''' || chr(10) ||
-'                and mp.ogg_soc_cod = m.ogg_soc_cod' || chr(10) ||
-'                and mp.ogg_mod_id = m.ogg_id' || chr(10) ||
-'                and p.ogg_tipo = ''3''' || chr(10) ||
-'                and mp.ogg_soc_cod = p.ogg_soc_cod' || chr(10) ||
-'                and mp.ogg_par_id = p.ogg_id' || chr(10) ||
-'                and s.ogg_soc_ogg_soc_cod = mp.ogg_soc_cod' || chr(10) ||
-'                and s.ogg_soc_ogg_id = m.ogg_id' || chr(10) ||
-'                and mp.dagg_num5 is not null' || chr(10) ||
-'                and mp.ogg_soc_cod = s3ksysutils.SocPubPriv('''||s3ksysglobal.soc_ute||''', ''OGG'')';
+  v_query := v_query ||
+ ' UNION' ||
+'  select DISTINCT mp.ogg_f_annu,' ||
+'        substr(mp.ogg_stg_anno,1,4),' ||
+'        substr(mp.ogg_stg_cod,1,1),' ||
+'        s.ogg_soc_lin_cod,' ||
+'        substr(s.ogg_soc_lin_cod,1,2),' ||
+'        substr(m.ogg_cod,6,5),' ||
+'        substr(m.ogg_cod,11,2),' ||
+'        substr(m.ogg_cod,1,5),' ||
+'        p.ogg_cod,' ||
+'        substr(mp.dagg_num5,1,3),' ||
+'        mp.ogg_id,' ||
+'        m.ogg_id,' ||
+'        p.ogg_id,' ||
+'       b.opb_col_cod' ||
+'from pindt_ext_modart_crm t, s3t_opb b, 
+         s3t_ogg mp, s3t_ogg m, s3t_ogg p, s3t_ogg_soc s'|| 
+'where t.modid  (+)= b.opb_mod_id' ||
+'    and t.parid  (+)= b.opb_par_id' ||
+'    and t.societa(+)= b.opb_soc_cod' ||
+'and to_char(b.opb_data_mod,''YYYY/MM/DD HH24:MI:SS'') > 
+'''||to_char(LastExcutionData,'YYYY/MM/DD HH24:MI:SS')||''''|| 
+' and t.cd_modello IS NULL' ||
+' and mp.ogg_tipo = ''5''' ||
+'and mp.ogg_soc_cod = b.opb_ogg_soc_cod' ||
+'and mp.ogg_mod_id = b.opb_mod_id' ||
+'and mp.ogg_par_id = b.opb_par_id' ||
+'and m.ogg_tipo = ''1''' ||
+'and mp.ogg_soc_cod = m.ogg_soc_cod' ||
+'and mp.ogg_mod_id = m.ogg_id' ||
+'and p.ogg_tipo = ''3''' ||
+'and mp.ogg_soc_cod = p.ogg_soc_cod' ||
+'and mp.ogg_par_id = p.ogg_id' ||
+'and s.ogg_soc_ogg_soc_cod = mp.ogg_soc_cod' ||
+'and s.ogg_soc_ogg_id = m.ogg_id' ||
+'and mp.dagg_num5 is not null' ||
+'and mp.ogg_soc_cod = 
+s3ksysutils.SocPubPriv('''||s3ksysglobal.soc_ute||''', ''OGG'')';
 
 IF v_mrc_lis IS NOT NULL THEN
-   v_query := v_query || ' And Substr(s.ogg_soc_lin_cod,1,2) in ('''||v_mrc_lis||''')';
+   v_query := v_query || 
+     ' And Substr(s.ogg_soc_lin_cod,1,2) in ('''||v_mrc_lis||''')';
 END IF;
 IF v_lnv IS NOT NULL THEN
-    v_query := v_query || ' And s.ogg_soc_lin_cod in ('''||v_lnv||''')';
+    v_query := v_query || 
+' And s.ogg_soc_lin_cod in ('''||v_lnv||''')';
     
   END IF;
 \end{lstlisting}
-
+La sintassi di PL/SQL prevede che la concatenazione fra stringhe di testo (delimitate da apici) avvenga tramite il 'pipe' due volte in successione, inoltre l'inserimento di una variabile all'interno della stringa va gestito con cautela, in quanto va fatta una distinzione sul tipo della variabile inserita: \\
+\begin{itemize}
+\item se è di tipo alfanumerico vanno utilizzati 3 apici in chiusura della stringa, seguiti dalla variabile ed a sua volta seguita da altri 3 apici, ogni parte concatenata con l'altra; questo perché ci deve essere una forma di escape tra gli apici che distinguono il testo della query in stato di stringa ed il contenuto della variabile, che in Run-Time, quando viene effettivamente eseguita la query, diventa un valore alfanumerico senza significato per un compilatore, non utilizzabile in un confronto o una selezione.\\
+\item se è di tpo intero basta una concatenazione senza apici aggiuntivi
+\end{itemize}
+[...]
+Caricamento dati in locale \newline
+[...]
+Caricamento dati in remoto \newline
+[...]
 \subsection{Sviluppo programma di import}
-La versione iniziale del programma di import è stata sviluppata nel 2007 da uno dei programmatori attualmente presenti in azienda e si basa su[...] \\
+La versione iniziale del programma di import è stata sviluppata nel 2002 da uno dei programmatori attualmente presenti in azienda e si basa su[...] \\
 
 
 \subsection{Creazione report di import}

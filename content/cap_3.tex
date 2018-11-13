@@ -1,3 +1,4 @@
+\fancyhead[LO, RE] {Studio delle Tecnologie}
 \section{Studio delle Tecnologie}
 \subsection{Stealth 3000}
 La maggior parte delle aziende tessili di larga scala in Italia utilizza un ERP specifico, Stealth 3000, sviluppato dall'azienda italiana Dedagroup.\\
@@ -100,27 +101,28 @@ SQL nasce come linguaggio per interrogazioni ad un database, che siano di estraz
 PL/SQL permette di creare script principalmente come funzioni, procedure oppure package che le contengono. Tutte le unità di programma sono accessibili da altre funzioni all'interno dello stesso database se appartengono allo stesso utente di accesso.\\
 Il codice PL/SQL ha una struttura specifica, organizzata a "blocchi" nel formato:\\ \textbf{BEGIN}\newline [content] \\ \textbf{exception}\newline [exception handling]\\ \textbf{END};\\ questo formato viene utilizzato all'interno di procedure e funzioni, e permette di utilizzare i costrutti di base dei linguaggi procedurali, come i cicli (for, while...) e istruzioni condizionali, oltre alla manipolazione delle variabili. Queste sono dichiarabili solo alla definizione di un programma, in una sezione presente appena dopo aver scritto il nome di una funzione o procedura, ma prima del comando \textbf{BEGIN}, nel formato\\ \textbf{Procedure/Function} <Nome procedura o funzione>(parametri) \textbf{IS}\newline [elenco variabili]\\ \textbf{BEGIN}\newline [content]\\ \textbf{exception}\newline [exception handling]\\ \textbf{END Nome procedura o funzione};\\ le variabili sono visibili solo all'interno del blocco in cui sono dichiarate, in particolare le variabili dichiarate internamente ad una funzione sono visibili solo all'interno di essa, mentre le variabili definite all'interno del package sono visibili a tutte le funzioni contenute in esso, e vengono definite \textbf{globali}.\\
 Oltre alle variabili standard tipiche di altri linguaggi procedurali, una delle caratteristiche sicuramente più utili di PL/SQL è quella di poter creare dei \textbf{cursor}; questi sono una dichiarazione di una query di selezione che poi potrà essere eseguita all'interno del programma ed il suo contenuto analizzato, tramite in comando \textbf{fetch}, il quale estrae una riga ed in successione le altre ogni volta che viene chiamato. Il contenuto del cursore può essere estratto in \textit{n} variabili a seconda delle colonne generate dalla query, oppure in una variabile di tipo \textit{nome\_cursore}\textbf{\%rowtype} dalla quale è possibile estrarre ogni campo della riga del cursore scrivendo \textit{nome\_rowtype}.\textit{nome\_campo}.\\
-Image
-refcursor[...]
-Image
-L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.
-[...]
-Image
+Image\newline
+refcursor[...]\\
+Image\\
+L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.\newline
+[...]\\
+Image\\
 \subsubsection{Debug di un programma}
-Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textit{debug} di una funzione o di un intero package. 
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textit{debug} di una funzione o di un intero package. \newline
 [...]
 
 \subsubsection{Piano di esecuzione}
-Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzarepiano di esecuzione di una query per poterne analizzare i punti critici. 
-[...]
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzarepiano di esecuzione di una query per poterne analizzare i punti critici. \newline
+[...]\\
 Image
 
 \subsection{Oracle Reports}
 Uno degli strumenti utilizzati dall'azienda fortemente collegato al database Oracle, è Oracle Reports, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
-Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.
-[...] Breve Panoramica Oracle Reports e studio della piattaforma
+Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\newline
+[...]\\
+ Breve Panoramica Oracle Reports e studio della piattaforma
 
 \subsection{Tecnologia per l'aggiornamento}
 I Database Link sono uno strumento messo a disposizione da Oracle per la comunicazione unidirezionale verso un altro database server, sotto forma di puntatori salvati come record all'interno di una Data Dictionary Table, ovvero tabelle di sola lettura che forniscono informazioni sul database. La comunicazione è unidirezionale nel senso che se un database Oracle possiede un dblink verso un altro database, non significa che dal database di destinazione si possa accedere al database Oracle.\\
-Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{global database name} all'interno del dominio di rete.
+Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{global database name} all'interno del dominio di rete.\newline
 [...]

@@ -23,9 +23,9 @@
 \contentsline {subsection}{\numberline {3.4}Tecnologia per l'aggiornamento}{11}{subsection.3.4}
 \contentsline {section}{\numberline {4}Sviluppo}{12}{section.4}
 \contentsline {subsection}{\numberline {4.1}Sviluppo programma di export}{12}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Sviluppo programma di import}{15}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Creazione report di import}{15}{subsection.4.3}
-\contentsline {section}{\numberline {5}Valutazione Retrospettiva}{16}{section.5}
-\contentsline {subsection}{\numberline {5.1}Obiettivi raggiunti}{16}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Difficolt\IeC {\`a} incontrate}{16}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Bilancio Formativo}{16}{subsection.5.3}
+\contentsline {subsection}{\numberline {4.2}Sviluppo programma di import}{24}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Creazione report di import}{24}{subsection.4.3}
+\contentsline {section}{\numberline {5}Valutazione Retrospettiva}{25}{section.5}
+\contentsline {subsection}{\numberline {5.1}Obiettivi raggiunti}{25}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Difficolt\IeC {\`a} incontrate}{25}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Bilancio Formativo}{25}{subsection.5.3}

@@ -126,11 +126,310 @@ La sintassi di PL/SQL prevede che la concatenazione fra stringhe di testo (delim
 \item se è di tipo alfanumerico vanno utilizzati 3 apici in chiusura della stringa, seguiti dalla variabile ed a sua volta seguita da altri 3 apici, ogni parte concatenata con l'altra; questo perché ci deve essere una forma di escape tra gli apici che distinguono il testo della query in stato di stringa ed il contenuto della variabile, che in Run-Time, quando viene effettivamente eseguita la query, diventa un valore alfanumerico senza significato per un compilatore, non utilizzabile in un confronto o una selezione.\\
 \item se è di tpo intero basta una concatenazione senza apici aggiuntivi
 \end{itemize}
-[...]
-Caricamento dati in locale \newline
-[...]
-Caricamento dati in remoto \newline
-[...]
+
+La fase successiva all'estrazione dei dati è quella di caricarli nella tabella locale dei modelli-parte-colore.
+\begin{lstlisting}
+LOOP
+  fetch Cur_modcol into 
+           f_annu_col, mod_annorif_col,
+           mod_codsta_col, mod_codlin_col,
+           mod_codmar_col, mod_codmod_col,
+           mod_codvar_col, cd_ana_col,
+           mod_codart_col, mod_codcarco_col,
+           mod_mod_par_id_col, mod_mod_id_col,
+           mod_par_id_col, v_col_id;
+  exit when Cur_modcol\%notfound;
+  
+          Open CAblCol(mod_mod_par_id_col, mod_par_id_col, 
+			 Mod_Annorif_col, Mod_Codsta_col);
+          Loop
+            Begin
+            Fetch CAblCol Into RAblCol;
+            Exit When CAblCol\%Notfound;
+            If RAblCol.col_cod<>'000' --colori di campionario
+
+            Then --colori in cartella colori
+              --ctr esistenza in cartella colori
+              v_col_blc :=Get_Blocco_Colore(
+			           Mod_Annorif_col,
+                                            Mod_Codsta_col,
+                                            Mod_Mod_Par_Id_col,
+                                            Mod_Mod_Id_col,
+                                            Mod_Par_Id_col,
+                                            RAblCol.Col_Cod); 
+                                          --Colori Bloccati
+              IF v_col_blc IS NULL THEN
+                v_col_blc := '0';
+              ELSE
+                v_col_blc := '1';
+              END IF;
+	   v_cct_id:=PPPRKOGGCCT.Get_CCT_ID(
+		      s3ksysglobal.soc_ute,
+                          Mod_Annorif_col,Mod_Codsta_col,
+                          Mod_Codmar_col,Mod_Codlin_col,
+                          Mod_Par_Id_col,mod_codcarco_col);
+              v_esiste:=0;
+              If v_esiste=0 AND (v_opb_data_mod>
+                                   LastExcutionData 
+				  OR
+                                RAblCol.sc_data_mod>
+			            LastExcutionData) 
+       Then 
+        BEGIN
+         v_img2 := null;
+         IF Mod_Codcarco_col IS NOT NULL THEN
+           v_img2    := Mod_Annorif_col||
+                        Mod_Codsta_col||
+                        Mod_Codlin_col||
+                        Mod_Codart_col||
+                        Mod_Codcarco_col||
+                        RAblCol.Col_Cod;
+         END IF;
+        INSERT INTO PINDT_MODART_CRM(
+	                            cd_modello,
+                                  cd_varia,
+                                 tipoana,
+                                 cd_ana,
+                                 cd_artico,
+                                 cd_cart,
+                                 cd_colore,
+                                 cd_linea,
+                                 datains,
+                                 dataupd,
+                                 annullato,
+                                 cd_stagiov,
+                                 imgname,
+                                 imgname2,
+                                 flagmo,
+                                 flagspecial,
+                                 disattiva,
+                                 col_annu,
+                                 societa
+                                 )
+                   VALUES(Mod_Codmod_col,
+                               Mod_Codvar_col,
+                               'C',
+                               cd_ana_col,
+                               Mod_Codart_col,
+                               'STD',
+                               RAblCol.Col_Cod,
+                              mod_codlin_col,
+                              LastExcutionData,
+                              v_sysd,
+                             nvl(v_col_blc,'0'),
+                             Mod_Annorif_col||
+                             Mod_Codsta_col,
+                             Mod_Annorif_col||
+                             Mod_Codsta_col||
+                             substr(Cd_Ana_col,3)||
+                             Mod_Codmod_col||
+                             Mod_Codvar_col||
+                             Mod_Codart_col||
+                             RAblCol.Col_Cod,
+                             v_img2,
+                              '0',
+                              '0',
+                              '0',
+                              '0',
+                             s3ksysglobal.Soc_Ute
+                      );
+exception
+  when dup_val_on_index then
+   BEGIN
+            UPDATE PINDT_MODART_CRM t 
+              SET t.dataupd = v_sysd,
+                     t.annullato = nvl(v_col_blc,'0'),
+                     t.imgname   = Mod_Annorif_col||
+				 Mod_Codsta_col||
+                                substr(Cd_Ana_col,3)||
+			           Mod_Codmod_col||
+                                   Mod_Codvar_col||
+                                   Mod_Codart_col||
+                                   RAblCol.Col_Cod,
+                   t.imgname2  = v_img2,
+                   t.col_annu = '0'
+       WHERE t.cd_modello = Mod_Codmod_col
+        AND t.cd_varia   = Mod_Codvar_col
+        AND t.tipoana    = 'C'
+        AND t.cd_ana     = Cd_Ana_col
+        AND t.cd_artico  = Mod_Codart_col
+        AND t.cd_cart    = 'STD'
+        AND t.cd_colore  = RAblCol.Col_Cod
+        AND t.cd_stagiov = Mod_Annorif_col||
+			        Mod_Codsta_col
+        AND t.cd_linea   = Mod_Codlin_col 
+        and societa    = s3ksysglobal.Soc_Ute;
+     exception when others then
+         v_error := sqlerrm;
+        s3ksysmess.Batch_Messaggi(60070 ,sysdate,
+	                  'MODELLO-COLORE: '||
+                       nvl(Mod_Codmod_col,'codice null')||'/'||
+                       nvl(Mod_Codart_col,'codice null')||'/'||
+                       nvl(RAblCol.Col_Cod,'codice null'));
+    END;
+when others then
+    v_error := sqlerrm;
+    s3ksysmess.Batch_Messaggi(60070 ,sysdate,
+                  'MODELLO-COLORE: '||
+                  nvl(Mod_Codmod_col,'codice null')||'/'||
+                   nvl(Mod_Codart_col,'codice null')||'/'||
+                    nvl(RAblCol.Col_Cod,'codice null'));
+ END;
+ End If;
+End If;
+Exception When Others Then
+     v_error:=Sqlerrm;
+     s3ksysmess.Batch_Messaggi(60070 ,sysdate);
+   End;
+End Loop;
+Close CAblCol ;
+\end{lstlisting}
+
+In questo blocco di codice possiamo vedere un'applicazione dei refcursor, il cui contenuto viene iterato per ogni record estratto dalla query definita sopra, ed ogni riga viene utilizzata come testata per un secondo cursore interno, il quale estrae tutti i colori disponibili per quel modello-parte.\\
+Si può inoltre vedere una gestione degli errori, permessa dalla struttura \textbf{BEGIN/exception/END} di PLSQL, in cui un errore di tipo 'chiave logica duplicata' viene gestito con un ulteriore blocco in cui viene aggiornato il valore del record per la chiave estratta. Eventuali errori generici vengono gestiti con un sistema di messaggistica sottoforma di Log, messo a disposizione da Stealth
+All'inizio della funzione che contiene i due blocchi di codice precedenti, viene assegnato il valore della data attuale alla variabile v\_sysd grazie alla keyword \textbf{sysdate}, e quest'ultima sarà il filtro per decidere quali valori della tabella locale verranno trasferiti nel database remoto, come si vede nel seguente blocco di codice finale:
+\begin{lstlisting}
+BEGIN
+  FOR CUR_MODCOL IN (
+     SELECT * FROM PINDT_MODART_CRM t
+     WHERE t.dataupd = v_sysd 
+          and t.societa = s3ksysglobal.Soc_Ute
+        AND t.cd_stagiov = replace(P_STG_ATT,'/')) 
+LOOP
+    BEGIN
+      IF nvl(Cur_modcol.Col_Annu,'0') = '0' THEN
+        INSERT INTO modelliarticoli@crm_sydat_eur.industries.com(
+                           "Cd_Modello",
+                           "Cd_Varia",
+                           "TipoAna",
+                           "Cd_Ana",
+                           "Cd_Artico",
+                           "Cd_variat",
+                           "Cd_Cart",
+                           "Cd_Colore",
+                           "CD_Variante",
+                           "CD_Lava",
+                           "CD_Drop",
+                           "CD_Statura",
+                           "cd_stagProd",
+                           "cd_stagiov",
+                           "CD_Flash",
+                           "CD_Collez",
+                           "Cd_Linea",
+                           "imgName",
+                           "imgName2",
+                           "Annullato",
+                           "FlagMO",
+                           "FlagSpecial",
+                           "Disattiva",
+                           "DataUpd",
+                           "DataIns",
+                           "Cd_TemaC",
+                           "Desc_TemaC")
+                    VALUES(Cur_modcol.Cd_Modello,
+                           Cur_modcol.Cd_Varia,
+                           Cur_modcol.Tipoana,
+                           Cur_modcol.Cd_Ana,
+                           Cur_modcol.Cd_Artico,
+                           Cur_modcol.Cd_Variat,
+                           Cur_modcol.Cd_Cart,
+                           Cur_modcol.Cd_Colore,
+                           Cur_modcol.Cd_Variante,
+                           Cur_modcol.Cd_Lava,
+                           Cur_modcol.Cd_Drop,
+                           Cur_modcol.Cd_Statura,
+                           Cur_modcol.Cd_Stagprod,
+                           Cur_modcol.Cd_Stagiov,
+                           Cur_modcol.Cd_Flash,
+                           Cur_modcol.Cd_Collez,
+                           Cur_modcol.Cd_Linea,
+                           Cur_modcol.Imgname,
+                           Cur_modcol.Imgname2,
+                           Cur_modcol.Annullato,
+                           Cur_modcol.Flagmo,
+                           Cur_modcol.Flagspecial,
+                           Cur_modcol.Disattiva,
+                           v_date,
+                           v_date,
+                           CUr_modcol.Cod_Temac,
+                           Cur_modcol.Des_Temac
+                           );
+        commit;
+
+        v_modelli_par_col_ins := v_modelli_par_col_ins + 1;
+      ELSE
+        BEGIN
+          DELETE FROM modelliarticoli@crm_sydat_eur.industries.com
+          WHERE "Cd_Modello"   = Cur_modcol.Cd_Modello
+            AND "Cd_Varia"     = Cur_modcol.Cd_Varia
+            AND "TipoAna"      = Cur_modcol.Tipoana
+            AND "Cd_Ana"       = Cur_modcol.Cd_Ana
+            AND "Cd_Artico"    = Cur_modcol.Cd_Artico
+            AND "Cd_Cart"      = Cur_modcol.Cd_Cart
+            AND "Cd_Colore"    = Cur_modcol.Cd_Colore;
+            commit;
+          if SQL\%rowcount > 0 then
+            v_modelli_par_col_del := v_modelli_par_col_del + 1;
+          end if;
+        exception when others then
+          rollback;
+          v_error:= sqlerrm;
+          s3ksysmess.Batch_Messaggi(60071 ,sysdate);
+        END;
+      END IF;
+    exception 
+      when Dup_Insert then
+        BEGIN
+          UPDATE modelliarticoli@crm_sydat_eur.industries.com
+          SET "Cd_variat"    = Cur_modcol.Cd_Variat,
+              "CD_Variante"  = Cur_modcol.Cd_Variante,
+              "CD_Lava"      = Cur_modcol.Cd_Lava,
+              "CD_Drop"      = Cur_modcol.Cd_Drop,
+              "CD_Statura"   = Cur_modcol.Cd_Statura,
+              "cd_stagProd"  = Cur_modcol.Cd_Stagprod,
+              "cd_stagiov"   = Cur_modcol.Cd_Stagiov,
+              "CD_Flash"     = Cur_modcol.Cd_Flash,
+              "CD_Collez"    = Cur_modcol.Cd_Collez,
+              "Cd_Linea"     = Cur_modcol.Cd_Linea,
+              "imgName"      = Cur_modcol.Imgname,
+              "imgName2"     = Cur_modcol.Imgname2,
+              "Annullato"    = Cur_modcol.Annullato,
+              "DataUpd"      = v_date,
+              "Cd_TemaC"     = Cur_modcol.Cod_Temac,
+              "Desc_TemaC"   = Cur_modcol.Des_Temac
+        WHERE "Cd_Modello"   = Cur_modcol.Cd_Modello
+          AND "Cd_Varia"     = Cur_modcol.Cd_Varia
+          AND "TipoAna"      = Cur_modcol.Tipoana
+          AND "Cd_Ana"       = Cur_modcol.Cd_Ana
+          AND "Cd_Artico"    = Cur_modcol.Cd_Artico
+          AND "Cd_Cart"      = Cur_modcol.Cd_Cart
+          AND "Cd_Colore"    = Cur_modcol.Cd_Colore;
+          commit;
+          v_modelli_par_col_upd := v_modelli_par_col_upd + 1;
+        exception when others then
+          v_error := sqlerrm;
+          s3ksysmess.Batch_Messaggi(60071 ,sysdate,
+	                        'Modelli Colore'||sqlerrm);
+          v_modelli_par_col_err := v_modelli_par_col_err + 1;
+          rollback;
+        END;
+      when others then
+        v_error := sqlerrm;
+        s3ksysmess.Batch_Messaggi(60071 ,sysdate,
+                         'Modelli Colore'||sqlerrm);
+        v_modelli_par_col_err := v_modelli_par_col_err + 1;
+        rollback;
+    END;
+  END LOOP;
+  exception when others then
+      s3ksysmess.Batch_Messaggi(1583,sysdate,
+                         'Modelli Colore: ',sqlerrm);
+    END;
+\end{lstlisting}
+In un sistema Eterogeneo, ovvero in ui i database collegati dal DbLink sono diversi, come in questo caso tra Oracle e Sql Server, il riferimento ai campi dati di una tabella remota vanno specificati utilizzando il doppio apice ad inizio e fine, ed il nome è \textit{case sensitive}.\\
+I dati estratti dal cursore per essere riversati nella tabella remota sono filtrati per la data impostata precedentemente, in fase di caricamento della tabella locale.
+Quanto emerso da elaborazioni su set ristretti di dati, i DbLink in un sistema eterogeneo sono piuttosto lenti, nel caso specifico vengono trasferiti circa 1200 record al secondo in inserimento, mentre circa la metà in fase di modifica data la presenza di condizioni di filtro (nella clausola WHERE) che necessariamente rallentano l'esecuzione. Inoltre la decisione di eseguire una \textbf{commit} ad ogni record, utile per avere dei dati in fase di esecuzione in caso il programma sia molto lungo nella sua esecuzione, rallenta il processo, rispetto ad avere una singola commit alla fine dell'esecuzione, al costo ovviamente di non aver inserito nessuna riga in caso di un qualsiasi errore.\\
+Nel complesso, l'autonomia dell'esecuzione, e soprattutto la decisione di schedulare il programma ogni notte per rendere marginale la questione della velocità di esecuzione, permettono di avere un vantaggio rispetto alla versione attuale del programma.
 \subsection{Sviluppo programma di import}
 La versione iniziale del programma di import è stata sviluppata nel 2002 da uno dei programmatori attualmente presenti in azienda e si basa su[...] \\
 

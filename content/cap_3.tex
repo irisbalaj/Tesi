@@ -39,7 +39,7 @@ Fornitore &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Codice corrispondente al ruolo F
 Agente &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Codice corrispondente al ruolo agente (se esistente)\\  del soggetto. Il codice sarà assegnato\\  in automatico alla generazione del ruolo\\ ed il campo presente servirà per ricerche \\mirate ai soli ruoli agente.\end{tabular}\\ \hline
 
 \end{tabular} 
-	\caption{Testata Soggetti}
+	\caption{Soggetti: Dati di testata}
 \end{center}
 \end{table}
 \newpage
@@ -78,19 +78,111 @@ Dati Generali:
 
 	Società Intercompany &  \begin{tabular}{@{}c@{}@{}@{}@{}}   Codice societario assegnato al cliente\\ se appartiene al dominio delle società definite\\ “Intragruppo”. Questi soggetti avranno\\ particoli processi di trattamento\\ per i rapporti attivi e passivi.\end{tabular}\\ \hline
 	
-	\caption{Dati Generali}
+	\caption{Soggetti: Dati Generali}
 
 \end{longtable}
 
-\subsubsection{Condizioni Commerciali}
-Panoramica Condizioni Commerciali
+\subsubsection{Condizioni di Vendita}
+Di seguito vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in (figura 1).
+
+%Figura Cond Comm
+
+Tramite questa form è possibile gestire i dati di vendita del cliente con record multipli la cui chiave è: Anno/Stagione/Marchio/Tipologia di Vendita.\\
+Con questa configurazione è possibile memorizzare per ogni cliente diverse configurazioni di dati per la vendita in dipendenza di diverse Stagioni e/o Marchi e/ Tipologie di vendita; nel caso in cui uno o più campi chiave siano vuoti il loro significato corrisponde a “tutte le ricorrenze corrispondenti”. Ad esempio nel caso (in figura) le condizioni di vendita sono nominalmente valide per tutte le stagioni, tutti i marchi e tutte le tipologie di vendita, mentre se fosse stato valorizzato l'anno/stagione, sarebbero state valide per tutti i marchi/tipologie di vendita di quel determinato anno/stagione.\\
+Descrizione dei dati generali delle Condizioni di Vendita:
+
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+	Valuta & \begin{tabular}{@{}c@{}@{}} Valuta di defautl che sarà\\  proposta in tutti i documenti attivi\\ generati per il cliente di fatturazione.\end{tabular} \\ \hline  
+
+	Tipo Listino &  \begin{tabular}{@{}c@{}@{}}  Codice del tipo listino che sarà utilizzato\\ per il reperimento dei prezzi nella\\generazione dei documenti attivi. \end{tabular}\\ \hline   
+
+	Pagamento &  \begin{tabular}{@{}c@{}@{}} Codice di pagamento che sarà proposto\\di default per i documenti attivi generati\\ per il cliente quando questo è il cliente intestatario.\end{tabular}\\ \hline   
+
+	Giorno Preferenziale &  \begin{tabular}{@{}c@{}@{}} Giorno del mese di preferenza per\\ le scadenze dei pagamenti che\\saranno generati al cliente.\end{tabular}\\ \hline  
+
+	Contabilità &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}} Questo flag determina quale tra le\\ condizioni di vendita inserite sarà\\ la fonte dei dati che saranno trasmessi al\\ sistema amministrativo. Per questa\\ ragione ci può essere una sola Condizione\\  di vendita con questo flag alzato.\end{tabular}\\ \hline     
+
+	Inizio Fine In &  \begin{tabular}{@{}c@{}@{}@{}}   Tramite questa coppia di dati è possibile\\ stabilire due periodi dell’anno (Da Giorno/Mese\\ a Giorno/Mese) in cui le scadenze\\ di pagamento dovranno essere ricondotte\\  al Giorno/Mese indicato nela campo 'In'.\end{tabular}\\ \hline   
+
+	Banca Cli. &  \begin{tabular}{@{}c@{}@{}}  Codice della tabella banche del Soggetto\\da utilizzare come banca trassata preferenziale\\ dei pagamenti del cliente di fatturazione.\end{tabular}\\ \hline   
+
+	IBAN Cli. &  \begin{tabular}{@{}c@{}@{}} Codice IBAN (Diviso tra prefisso naz.-Cin)\\ e codice vero e proprio tra quelli disposti\\ nella tabella banche del Soggetto.\end{tabular}\\ \hline
+	
+	Banca di appoggio - IBAN &  \begin{tabular}{@{}c@{}@{}c@{}@{}c@{}@{}}  Codice della banca e IBAN del conto\\ corrente preferenziale sul quale appoggiare\\ i pagamenti del cliente. Nel caso di più linee\\  di credito dell’Azienda è possibile così pilotare\\  gli effetti da emettere presso l’Istituto \\  Bancario più conveniente per i \\  rapporti con la banca del Cliente. \end{tabular}\\ \hline 
+
+	Agente &  \begin{tabular}{@{}c@{}}   Codice Agente abilitato al cliente corrente\\  per la stagione/Marchio/Tipo di vendita prescelti.\end{tabular}\\ \hline 
+
+	Importatore &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Flag che indica come il cliente sia\\  da considerare Importatore per cui l’emissione\\ del documento di vendita al cliente di\\  fatturazione dovrà essere riferito a\\ condizioni di vendita diverse da quelle\\ applicate ai clienti di destinazione. \end{tabular}\\ \hline    
+
+	Classe Cl.–Eventi &  \begin{tabular}{@{}c@{}}  Codice di classe del cliente a cui può\\essere abilitato uno o più eventi di vendita.\end{tabular}\\ \hline  
+
+	Label &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}} Codice aggiuntivo dei prodotti che sarà \\aggiunto automaticamente alle righe ordini\\  in maniera da caratterizzare puntualmente\\  il fabbisogno, la disponibilità e relative\\ assegnazioni al cliente specifico (Forniture speciali). \end{tabular}\\ \hline   
+
+	Cartellino &  \begin{tabular}{@{}c@{}} Codice aggiuntivo dall’uso \\ uguale al precedente. \end{tabular}\\ \hline  
+
+	Sconti Comm. &  \begin{tabular}{@{}c@{}@{}}    Percentuali di sconto multiple, che\\ saranno applicate in cascata a tutti\\gli ordini di cui il cliente è intestatario. \end{tabular}\\ \hline  
+
+	Provvigioni   &  \begin{tabular}{@{}c@{}@{}}     Percentuali di sconto multiple, che\\ saranno applicate in cascata \\all’agente abilitato al cliente.  \end{tabular}\\ \hline 
+
+	\caption{Condizioni di Vendita: Dati Generali}
+
+\end{longtable}
+
 \subsubsection{Modelli}
-Panoramica Modelli
+Il Modello (Style) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
+Di seguito si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
+
+%Modelli
+
+Dati di Testata:
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Codice & \begin{tabular}{@{}c@{}@{}@{}c@{}@{}@{}c@{}@{}}  Codice Oggetto: l’utente può caricare un codice\\ a suo piacimento, ma può anche saltare\\  l’inserimento di dati in questo campo.\\  In questo caso il sistema proporrà un\\ codice in automatico da parte di un numeratore\\ da configurare a sistema. In ogni caso\\ all’uscita del campo avverrà anche un\\ controllo di unicità del codice\\ all’interno dell’archivio Modelli.\end{tabular} \\ \hline       
+
+	Descrizione &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Descrizione del modello. Sarà proposta\\ la lingua di gestione dell’utente, ma sarà\\ possibile inserire anche decrizioni alternative \\ nelle lingue previste a sistema, tramite \\   il pulsante laterale con le bandiere colorate. \end{tabular}\\ \hline  
+
+	Modello/Classe &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Radio Button con il quale indicare se l’anagrafica\\ che si stà inserendo corrisponde ad un Modello\\effettivo oppure ad una classe di modelli\\  (Ad uso della gestione dei capi formali).\\  Dato fissato per Default come Modello.\end{tabular}\\ \hline     
+
+	NonForm/Formale &  \begin{tabular}{@{}c@{}@{}} Radio Button per la scelta del tipo di\\ gestione del codice corrente. Dato\\fissato per Default come NonForm.\end{tabular}\\ \hline
+
+	Stagionalità &  \begin{tabular}{@{}@{}c@{}@{}@{}@{}@{}} Questo Flag facoltativo indica, se alzato,\\ che saranno considerate valide, per\\ questo Modello, SOLO le abilitazioni con\\  l’indicazione esplicita dell’Anno-Stagione.\\ Quelle abilitazioni definite 'continuative' NON\\  saranno prese in considerazione per\\  il Modello con questo flag alzato.\end{tabular}\\ \hline       
+
+	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Modello risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti NON VALIDO..\end{tabular}\\ \hline   
+	\caption{Modello: Dati di Testata}
+
+\end{longtable}
+
+Dati Base:
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Taglie/Misura/Nullo & \begin{tabular}{@{}c@{}@{}@{}c@{}}   Bottone a scelta esclusiva in cui si definisce che\\  il Modello sarà gestito con l’indicazione, rispettivamente:\\ Taglie, Misura oppure nessuna delle due.\\  Le prime due scelte attivano dei blocchi\\ aggiuntivi per la gestione dei dati relativi.  \end{tabular} \\ \hline     
+
+	Abbinabile &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Il flag Abbinabile indica che il Modello\\ potrà essere utilizzato per generare un\\  Modello Parte. Altrimenti il codice \\  non sarà associabile ad una Parte. \end{tabular}\\ \hline  
+
+	Nr.Pezzi &  \begin{tabular}{@{}c@{}@{}@{}} Indicazione valida per Modelli che descrivono\\ capi formati da più pezzi indipendenti\\ (Tailleur, Giacca e pantaloni da neve, ecc...).\\  (Ad uso della gestione dei capi formali). \end{tabular}\\ \hline
+
+	Stagione &  \begin{tabular}{@{}c@{}@{}@{}@{}} Stagione di nascita del Modello.\\E’ un dato statistico che NON interviene\\nell’abilitàzione stagionale del Modello, \\  che quindi potrà essere comunque\\ utilizzato in più stagioni.\end{tabular}\\ \hline   
+
+	Classe/Sottoclasse &  \begin{tabular}{@{}@{}c@{}@{}@{}} Classificazione statistica del modello,\\  utilizzabile in stampe e selezioni opertive\\ nelle più diverse funzioni per richiamare\\   più modelli appartenenti alla\\  stessa Classe/sottoclasse.  \end{tabular}\\ \hline    
+
+	\caption{Modello: Dati base}
+
+\end{longtable}
+
 \subsubsection{Parti}
 Panoramica Parti
 \subsubsection{Modelli-Parte}
 Panoramica Modelli-Parte
-\subsubsection{Listini}
+\subsubsection{Listini di Vendita}
 Panoramica Listini
 
 

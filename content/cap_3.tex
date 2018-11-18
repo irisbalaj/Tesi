@@ -132,6 +132,10 @@ Descrizione dei dati generali delle Condizioni di Vendita:
 \end{longtable}
 
 \subsubsection{Modelli}
+Gli Oggetti nel package Stealth 3000 sono tutti i tipi di prodotto che possono essere gestiti come beni d’acquisto (materie prime e componenti di Distinta Base), acquistati e/o prodotti, gestiti a magazzino, venduti e così via. \\
+Le anagrafiche Oggetti (Modello, Parte, Modello/Parte) sono gestite in due livelli: a livello di 'Gruppo', ovvero pubbliche a tutte le società e a livello 'Società', ovvero l'appartenenza è limitata alla stessa, che è l'unica in grado di apportare modifiche.\\
+ La maggior parte dei dati delle anagrafiche sono a livello Pubblico, mentre solo alcuni dati di Vendita e Gestione sono a livello Società.
+
 Il Modello (Style) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
 Di seguito si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
 
@@ -153,7 +157,7 @@ Dati di Testata:
 
 	Stagionalità &  \begin{tabular}{@{}@{}c@{}@{}@{}@{}@{}} Questo Flag facoltativo indica, se alzato,\\ che saranno considerate valide, per\\ questo Modello, SOLO le abilitazioni con\\  l’indicazione esplicita dell’Anno-Stagione.\\ Quelle abilitazioni definite 'continuative' NON\\  saranno prese in considerazione per\\  il Modello con questo flag alzato.\end{tabular}\\ \hline       
 
-	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Modello risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti NON VALIDO..\end{tabular}\\ \hline   
+	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Modello risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valido.\end{tabular}\\ \hline   
 	\caption{Modello: Dati di Testata}
 
 \end{longtable}
@@ -178,8 +182,74 @@ Dati Base:
 
 \end{longtable}
 
+
 \subsubsection{Parti}
-Panoramica Parti
+La parte è un codice che può avere molteplici funzioni:
+\begin{itemize}
+\item Descrizione del materiale o dell’aspetto complementare ad un codice modello per la formazione del Modello-Parte.
+
+\item Codice corrispondente ad un materiale effettivo che sarà usato ANCHE per la formazione del Modello-Parte
+
+\item Codice corrispondente ad un oggetto fisico, normalmente componenti di produzione dei Modelli- Parte (Elementi di DiBa) che non sarà MAI usato per la formazione di Codici Modello-Parte
+
+\item Codice corrispondente ad un oggetto NON fisico utilizzato per l’inserimento in documenti aziendali di voci immateriali quali: rimborso spese di trasporto, addebito bolli, Servizio di catering, ecc...
+\end{itemize}
+
+Di seguito si può vedere una anagrafica di gestione Parti in Stealth 3000:
+
+%figura
+
+
+Dati di Testata:
+
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Codice & \begin{tabular}{@{}c@{}@{}@{}c@{}@{}@{}@{}@{}}  Codice Oggetto: l’utente può caricare\\ un codice a suo piacimento, ma può\\ anche saltare l’inserimento di dati in questo campo.\\  In questo caso il sistema proporrà un codice\\ in automatico da parte di un numeratore\\ da configurare a sistema. In ogni caso\\ all’uscita del campo avverrà anche un\\ controllo di unicità del codice all’interno\\  dell’archivio Parti.  \end{tabular} \\ \hline         
+
+	Descrizione &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Descrizione della Parte. Sarà proposta\\ la lingua di gestione dell’utente, ma sarà\\ possibile inserire anche decrizioni alternative \\ nelle lingue previste a sistema, tramite \\   il pulsante laterale con le bandiere colorate. \end{tabular}\\ \hline  
+
+	Parte/Classe &  \begin{tabular}{@{}c@{}@{}@{}} Radio Button con il quale indicare se l’anagrafica\\ che si stà inserendo corrisponde ad un Modello effettivo\\oppure ad una classe di modelli. \end{tabular}\\ \hline
+
+	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato la Perte risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valida.\end{tabular}\\ \hline   
+
+	\caption{Parte: Dati di Testata}
+
+\end{longtable}
+
+Dati di base:
+
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Taglie/Misura/Nullo & \begin{tabular}{@{}c@{}@{}@{}c@{}}   Bottone a scelta esclusiva in cui si definisce che\\  la Parte sarà gestita con l’indicazione, rispettivamente:\\ Taglie, Misura oppure nessuna delle due.\\  Le prime due scelte attivano dei blocchi\\ aggiuntivi per la gestione dei dati relativi.  \end{tabular} \\ \hline     
+	
+	Mater. Di Taglio & \begin{tabular}{@{}c@{}@{}@{}c@{}}  Questo flag identifica quei materiali che potranno\\ essere sottoposti ad operazioni di taglio\\ per cui si renderà necessaria l’apertura di un\\  blocco supplementare di dati per la gestione \\ dei dati dimensionali.  \end{tabular} \\ \hline     
+
+	Abbinabile &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Il flag Abbinabile indica che la Parte\\ potrà essere utilizzata per generare un\\  Modello Parte. Altrimenti il codice \\  non sarà associabile ad un Modello. \end{tabular}\\ \hline  
+
+	Transazioni &  \begin{tabular}{@{}c@{}@{}@{}} Flag che identifica le Parti che si possono inserire\\  in transazioni (Doc. Di trasporto, Doc di Vendita\\  o Acquisto ecc...) indipendentemente dal\\   fatto che corrispondano o meno ad un oggetto fisico. \end{tabular}\\ \hline   
+
+	Mov. a gia. &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}} Questo flag acceso indica che ogni movimento\\ del codice corrente avrà effetti sul conteggio\\  finale della giacenza in maniera algebrica.\\    Il flag spendo indica invece codici di parti per\\   cui non sarà possibile ottenere una interrogazione\\ di giacenza (Materiali di consumo, parti\\ immateriali, codici figurativi, ...).\end{tabular}\\ \hline      
+
+	Giac. Fiscale  &  \begin{tabular}{@{}c@{}}Il flag indica che la parte corrente sarà\\ da inserire nei report di giacenza ai fini fiscali.\end{tabular}\\ \hline    
+
+	Gest. A Colore  &  \begin{tabular}{@{}c@{}@{}@{}} Questo flag alzato indica che la Parte\\ è gestita a colori e quindi ogni riferimento\\  al codice corrente dovrà essere completato\\    da un riferimento ad un codice colore. \end{tabular}\\ \hline    
+
+	Col. Stagionale &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}@{}@{}@{}@{}} L’indicazione di stagionalità del colore indica\\ che per ogni stagione sarà obbligatorio\\  inserire l’abilitazione a colori. Il non\\    inserimento di un’abilitazione stagionale\\ farà sì che il colore non potrà essere utilizzato\\al di fuori della stagione abilitata. Il flag\\spento fa sì che si possano definire abilitazioni\\ di colori generici validi per tutte le stagioni,\\   a patto che non esistano altre abilitazioni\\ stagionali che, quindi, saranno le\\ uniche valide per la stagione.\end{tabular}\\ \hline        
+
+	Stagione &  \begin{tabular}{@{}c@{}@{}@{}@{}} Stagione di nascita del Modello.\\E’ un dato statistico che NON interviene\\nell’abilitàzione stagionale del Modello, \\  che quindi potrà essere comunque\\ utilizzato in più stagioni.\end{tabular}\\ \hline   
+
+	Classe/Sottoclasse &  \begin{tabular}{@{}@{}c@{}@{}@{}} Classificazione statistica del modello,\\  utilizzabile in stampe e selezioni opertive\\ nelle più diverse funzioni per richiamare\\   più modelli appartenenti alla\\  stessa Classe/sottoclasse.  \end{tabular}\\ \hline    
+
+	\caption{Parte: Dati base}
+
+\end{longtable}
+
 \subsubsection{Modelli-Parte}
 Panoramica Modelli-Parte
 \subsubsection{Listini di Vendita}

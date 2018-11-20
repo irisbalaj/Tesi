@@ -137,6 +137,7 @@ Le anagrafiche Oggetti (Modello, Parte, Modello/Parte) sono gestite in due livel
  La maggior parte dei dati delle anagrafiche sono a livello Pubblico, mentre solo alcuni dati di Vendita e Gestione sono a livello Società.
 
 Il Modello (Style) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
+Il codice del Modello è una combinazione di caratteristiche anagrafiche, nello specifico [Codifica Anno/Stagione][Linea][Codice Modello][Variante] in rispettivamente 2, 3, 5 e 2 caratteri, per un totale di 12.\\
 Di seguito si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
 
 %Modelli
@@ -155,7 +156,7 @@ Dati di Testata:
 
 	NonForm/Formale &  \begin{tabular}{@{}c@{}@{}} Radio Button per la scelta del tipo di\\ gestione del codice corrente. Dato\\fissato per Default come NonForm.\end{tabular}\\ \hline
 
-	Stagionalità &  \begin{tabular}{@{}@{}c@{}@{}@{}@{}@{}} Questo Flag facoltativo indica, se alzato,\\ che saranno considerate valide, per\\ questo Modello, SOLO le abilitazioni con\\  l’indicazione esplicita dell’Anno-Stagione.\\ Quelle abilitazioni definite 'continuative' NON\\  saranno prese in considerazione per\\  il Modello con questo flag alzato.\end{tabular}\\ \hline       
+	Stagionalità &  \begin{tabular}{@{}@{}c@{}@{}@{}@{}@{}} Questo Flag facoltativo indica, se alzato,\\ che saranno considerate valide, per\\ questo Modello, SOLO le abilitazioni con\\  l’indicazione esplicita dell’Anno-Stagione.\\ Quelle abilitazioni definite 'continuative' non\\  saranno prese in considerazione per\\  il Modello con questo flag alzato.\end{tabular}\\ \hline       
 
 	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Modello risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valido.\end{tabular}\\ \hline   
 	\caption{Modello: Dati di Testata}
@@ -188,13 +189,13 @@ La parte è un codice che può avere molteplici funzioni:
 \begin{itemize}
 \item Descrizione del materiale o dell’aspetto complementare ad un codice modello per la formazione del Modello-Parte.
 
-\item Codice corrispondente ad un materiale effettivo che sarà usato ANCHE per la formazione del Modello-Parte
+\item Codice corrispondente ad un materiale effettivo che sarà usato anche per la formazione del Modello-Parte
 
-\item Codice corrispondente ad un oggetto fisico, normalmente componenti di produzione dei Modelli- Parte (Elementi di DiBa) che non sarà MAI usato per la formazione di Codici Modello-Parte
+\item Codice corrispondente ad un oggetto fisico, normalmente componenti di produzione dei Modelli- Parte (Elementi di DiBa) che non sarà mai usato per la formazione di Codici Modello-Parte
 
-\item Codice corrispondente ad un oggetto NON fisico utilizzato per l’inserimento in documenti aziendali di voci immateriali quali: rimborso spese di trasporto, addebito bolli, Servizio di catering, ecc...
+\item Codice corrispondente ad un oggetto non fisico utilizzato per l’inserimento in documenti aziendali di voci immateriali quali: rimborso spese di trasporto, addebito bolli, Servizio di catering, ecc...
 \end{itemize}
-
+Essa è un codice univoco di 5 caratteri.\\
 Di seguito si può vedere una anagrafica di gestione Parti in Stealth 3000:
 
 %figura
@@ -213,7 +214,7 @@ Dati di Testata:
 
 	Parte/Classe &  \begin{tabular}{@{}c@{}@{}@{}} Radio Button con il quale indicare se l’anagrafica\\ che si stà inserendo corrisponde ad un Modello effettivo\\oppure ad una classe di modelli. \end{tabular}\\ \hline
 
-	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato la Perte risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valida.\end{tabular}\\ \hline   
+	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato la Parte risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valida.\end{tabular}\\ \hline   
 
 	\caption{Parte: Dati di Testata}
 
@@ -242,7 +243,7 @@ Dati di base:
 
 	Col. Stagionale &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}@{}@{}@{}@{}} L’indicazione di stagionalità del colore indica\\ che per ogni stagione sarà obbligatorio\\  inserire l’abilitazione a colori. Il non\\    inserimento di un’abilitazione stagionale\\ farà sì che il colore non potrà essere utilizzato\\al di fuori della stagione abilitata. Il flag\\spento fa sì che si possano definire abilitazioni\\ di colori generici validi per tutte le stagioni,\\   a patto che non esistano altre abilitazioni\\ stagionali che, quindi, saranno le\\ uniche valide per la stagione.\end{tabular}\\ \hline        
 
-	Stagione &  \begin{tabular}{@{}c@{}@{}@{}@{}} Stagione di nascita del Modello.\\E’ un dato statistico che NON interviene\\nell’abilitàzione stagionale del Modello, \\  che quindi potrà essere comunque\\ utilizzato in più stagioni.\end{tabular}\\ \hline   
+	Stagione &  \begin{tabular}{@{}c@{}@{}@{}@{}} Stagione di nascita della Parte.\\E’ un dato statistico che NON interviene\\nell’abilitàzione stagionale della Parte, \\  che quindi potrà essere comunque\\ utilizzato in più stagioni.\end{tabular}\\ \hline   
 
 	Classe/Sottoclasse &  \begin{tabular}{@{}@{}c@{}@{}@{}} Classificazione statistica del modello,\\  utilizzabile in stampe e selezioni opertive\\ nelle più diverse funzioni per richiamare\\   più modelli appartenenti alla\\  stessa Classe/sottoclasse.  \end{tabular}\\ \hline    
 
@@ -251,11 +252,140 @@ Dati di base:
 \end{longtable}
 
 \subsubsection{Modelli-Parte}
-Panoramica Modelli-Parte
+L'associazione tra un Modelli e Parti crea il Modello-Parte, ovvero un prodotto finito generalmente, che eredita Taglie e Misure dal Modello. Il codice è una concatenazione del Modello e della Parte, che quindi generano un codice finale di 17 caratteri.
+Di seguito si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:\\
+
+%figura
+
+Dati di Testata:
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Modello/Parte & \begin{tabular}{@{}c@{}} Campi per cercare/abbinare\\ Modelli e Parti.  \end{tabular} \\ \hline         
+
+	Descrizione &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}@{}}  Il campo é valorizzato in automatico con\\ l’unione delle descrizioni della classe\\ e sottoclasse statistica del Modello.\\ Descrizione della Parte. Sarà proposta\\ la lingua di gestione dell’utente, ma sarà\\ possibile inserire anche decrizioni alternative \\ nelle lingue previste a sistema, tramite \\   il pulsante laterale con le bandiere colorate. \end{tabular}\\ \hline  
+
+	Annullo &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Modello-Parte risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valida.\end{tabular}\\ \hline   
+
+	\caption{Modello-Parte: Dati di Testata}
+
+\end{longtable}
+
+Dati di Base:
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Transazioni &  \begin{tabular}{@{}c@{}@{}@{}} Flag che identifica i Modelli-Parte che si possono inserire\\  in transazioni (Doc. Di trasporto, Doc di Vendita\\  o Acquisto ecc...) indipendentemente dal\\   fatto che corrispondano o meno ad un oggetto fisico. \end{tabular}\\ \hline   
+
+	Mov. a gia. &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}} Questo flag acceso indica che ogni movimento\\ del codice corrente avrà effetti sul conteggio\\  finale della giacenza in maniera algebrica.\\    Il flag spendo indica invece codici di Modelli-Parte per\\   cui non sarà possibile ottenere una interrogazione\\ di giacenza (Materiali di consumo, parti\\ immateriali, codici figurativi, ...).\end{tabular}\\ \hline      
+
+	Giac. Fiscale  &  \begin{tabular}{@{}c@{}}Il flag indica che il Modello-Parte corrente sarà\\ da inserire nei report di giacenza ai fini fiscali.\end{tabular}\\ \hline    
+
+	Gest. A Colore  &  \begin{tabular}{@{}c@{}@{}@{}} Questo flag alzato indica che il Modello-Parte\\ è gestito a colori e quindi ogni riferimento\\  al codice corrente dovrà essere completato\\    da un riferimento ad un codice colore. \end{tabular}\\ \hline    
+
+	Col. Stagionale &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}@{}@{}@{}@{}} L’indicazione di stagionalità del colore indica\\ che per ogni stagione sarà obbligatorio\\  inserire l’abilitazione a colori. Il non\\    inserimento di un’abilitazione stagionale\\ farà sì che il colore non potrà essere utilizzato\\al di fuori della stagione abilitata. Il flag\\spento fa sì che si possano definire abilitazioni\\ di colori generici validi per tutte le stagioni,\\   a patto che non esistano altre abilitazioni\\ stagionali che, quindi, saranno le\\ uniche valide per la stagione.\end{tabular}\\ \hline        
+
+	Stagione &  \begin{tabular}{@{}c@{}@{}@{}@{}} Stagione di nascita del Modello-Parte.\\E’ un dato statistico che NON interviene\\nell’abilitàzione stagionale del Modello, \\  che quindi potrà essere comunque\\ utilizzato in più stagioni.\end{tabular}\\ \hline   
+
+	Classe/Sottoclasse &  \begin{tabular}{@{}@{}c@{}@{}@{}} Classificazione statistica del modello,\\  utilizzabile in stampe e selezioni opertive\\ nelle più diverse funzioni per richiamare\\   più modelli appartenenti alla\\  stessa Classe/sottoclasse.  \end{tabular}\\ \hline    
+
+	\caption{Parte: Dati base}
+
+\end{longtable}
 \subsubsection{Listini di Vendita}
-Panoramica Listini
+L'obiettivo della gestione dei Listini di vendita è la definizione dei Prezzi di vendita dei Prodotti e di quant’altro (purchè codificato), oggetto di transazione onerosa nei confronti di Clienti, in funzione di:
+\begin{itemize}
+\item Stagione
+\item Marchio
+\item Tipo di listino
+\item Valuta
+\item Mercato
+\end{itemize}
+ed eventualmente di una specifica
+\begin{itemize}
+\item Linea di vendita \textbf{(Business Line)}
+\end{itemize}
+nell’ambito del Marchio di appartenenza.\\
+Ci potrebbero essere dei Listini di Vendita importati da sistemi esterni che ne gestiscono il calcolo, la gestione e la sincronizzazione. Tali Listini non possono perciò essere modificati con le procedure qui di seguito descritte. La loro gestione è quindi demandata al sistema che li ha generati.\\
+Di seguito possiamo vedere un'anagrafica di gestione Stealth 3000 per il listini di Vendita, con la descrizione dei dati principali.\\
 
+%figura
 
+Dati di Testata:
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Marchio &  \begin{tabular}{@{}c@{}} Codice del Marchio di riferimento\\ validato dalla tabella dei Marchi. \end{tabular}\\ \hline   
+
+	Tipo Listino &  \begin{tabular}{@{}c@{}} Codice del Tipo di Listino validato\\ dalla tabella dei Tipi di Listino.\end{tabular}\\ \hline      
+
+	Valuta  &  \begin{tabular}{@{}c@{}} Codice della Valuta validata\\ dalla tabella delle Valute.\end{tabular}\\ \hline    
+
+	Mercato  &  \begin{tabular}{@{}c@{}} Codice del Mercato di riferimento\\ validato dalla tabella dei Mercati. \end{tabular}\\ \hline    
+
+	Lin.Ven &   Non gestita.\\ \hline        
+
+	Ril. &  \begin{tabular}{@{}c@{}}  Flag listino rilasciato. Se attivato\\   indica che il Listino di vendita è utilizzabile.  \end{tabular}\\ \hline
+
+	X &  \begin{tabular}{@{}c@{}@{}@{}}  Flag di annullamento di validità del record corrente.\\  Con questo flag alzato il Listino risponderà\\  ai controlli di relazionalità del database, ma\\ sarà a tutti gli effetti non valido.\end{tabular}\\ \hline   
+
+	\caption{Listino di Vendita: Dati di Testata}
+
+\end{longtable}
+Righe di listino
+\begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
+	
+	\hline
+	\textbf{Dato} & \textbf{Descrizione} \\ \hline
+
+	Mod/Cl. &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Codice del modello relativo al prodotto oggetto\\ della riga di listino, oppure codice della classe\\  di modelli, nel caso di gestione di listini per classe\\   e non per singolo prodotto. Nel caso di righe\\ di listino relative a materiali il campo non è valorizzato. \end{tabular}\\ \hline     
+
+	Combinazione & Non utilizzato\\ \hline    
+
+	Par/Cl &  \begin{tabular}{@{}c@{}@{}@{}@{}@{}@{}}  Codice della parte relativa al prodotto oggetto\\ della riga di listino, oppure codice della classe\\  di parti, quando il listino sia gestito per \\ modello/classe di parti o per classe di modelli/classe di parti.\\    Nel caso di righe di listino riferite a materiali,\\ questi possono essere gestiti per singola\\ parte piuttosto che per classe di parti.\end{tabular}\\ \hline         
+
+	Colore  &  \begin{tabular}{@{}c@{}@{}@{}c@{}@{}@{}c@{}@{}}  Dato da gestire nel caso di variabili\\  di prezzo per colore. Se immesso, il relativo\\  prezzo vale solo per il colore indicato.\\ Nel caso di un articolo previsto in più\\ colori con prezzo uguale tranne eccezioni,\\ dovranno essere inserite tante righe\\ per colore quante sono le eccezioni\\ più una riga generica (senza colore)\\  per tutte le variabili con prezzo uguale.\end{tabular}\\ \hline        
+
+	Misura  &  \begin{tabular}{@{}c@{}}  Da utilizzare solo nel caso di materiali gestiti\\  a misura, il cui prezzo vari al variare della misura. \end{tabular}\\ \hline    
+
+	Variante & Tipo Variante, validato dalla tabella delle Varianti.\\ \hline    
+
+	Drop & Codice Drop, non constituisce variabile di prezzo.\\ \hline    
+
+	Statura & Codice Statura, non constituisce variabile di prezzo.\\ \hline    
+
+	Etichetta & Codice Etichetta, non constituisce variabile di prezzo.\\ \hline    
+
+	Cartellino & Codice Cartellino, non constituisce variabile di prezzo.\\ \hline    
+
+	UM & Unità di Misura di riferimento dell'oggetto.\\ \hline    
+
+	Prezzo &  \begin{tabular}{@{}c@{}} Prezzo unitario dell’ oggetto riferito alla UM,\\ nella valuta espressa in testata listino. \end{tabular}\\ \hline    
+
+	Valuta & Valuta aziendale.\\ \hline    
+
+	Cambio  &  \begin{tabular}{@{}c@{}@{}} Se il prezzo è espresso in una valuta\\ diversa dall’ Euro, il cambio consente di\\  determinare il controvalore in Euro.\end{tabular}\\ \hline    
+
+	Pari a: & Unità di Riferimento del cambio\\ \hline    
+
+	Val. orig. & \begin{tabular}{@{}c@{}@{}} Valore originario quando il listino. Viene ottenuto\\  per copia da altro, con applicazione\\  di algoritmi di ricalcolo.\end{tabular}\\ \hline      
+
+	Round & Arrotondamento.\\ \hline    
+
+	a: & Applicazione dell'arrotondamento.\\ \hline    
+
+	\% appl. & Differenza percentuale rispetto al listino di partenza.\\ \hline    
+
+	Delta & Delta prezzo in valore assoluto \\ \hline
+	\caption{Listino di Vendita: Righe di Listino}
+
+\end{longtable}
 \subsection{Oracle PL/SQL Developer}
 PL/SQL Developer è un IDE creato per sviluppare unità di programma memorizzato in un database Oracle.\\
 SQL nasce come linguaggio per interrogazioni ad un database, che siano di estrazione o modifica dati, ma non permette di manipolare i dati in maniera estensiva, caratteristica invece di un linguaggio procedurale; istruzioni condizionali (IF ELSE) e cicli di iterazione, oltre a creazione di variabili sono le fondamenta alla base di programmi ed algoritmi complessi, ed è questo il vantaggio di PL/SQL.\\

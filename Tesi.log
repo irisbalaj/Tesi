@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.2)  14 NOV 2018 18:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.2)  21 NOV 2018 16:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -720,7 +720,7 @@ Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             ! on input line 6.
 
 (./content/Prima_pagina.tex
-<img/LogoPadova.png, id=4, 943.525pt x 949.5475pt>
+<img/LogoPadova.png, id=128, 943.525pt x 949.5475pt>
 File: img/LogoPadova.png Graphic file (type png)
 <use img/LogoPadova.png>
 Package pdftex.def Info: img/LogoPadova.png  used on input line 4.
@@ -758,26 +758,19 @@ a.png>] (./content/blank.tex [2
 
 ]) (./content/sommario.tex) [1
 
-]
-
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+] (./Tesi.toc)
 \tf@toc=\write4
 \openout4 = `Tesi.toc'.
 
-
-Package hyperref Warning: old lof file detected, not used; run LaTeX again.
-
+(./Tesi.lof)
 \tf@lof=\write5
 \openout5 = `Tesi.lof'.
 
-
-Package hyperref Warning: old lot file detected, not used; run LaTeX again.
-
+ (./Tesi.lot [2])
 \tf@lot=\write6
 \openout6 = `Tesi.lot'.
 
-[2] (./content/cap_1.tex)
+ [3] (./content/cap_1.tex)
 Underfull \vbox (badness 3229) has occurred while \output is active []
 
 
@@ -797,8 +790,17 @@ name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.21 	\newpage
-               [2] (./content/cap_2.tex) [3] (./content/cap_3.tex [4]
-<img/SogAnag.png, id=58, 1003.49907pt x 685.05937pt>
+               [2] (./content/cap_2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 43
+ []
+
+[3] [4] [5]) [6] (./content/cap_3.tex [7]
+<img/SogAnag.png, id=246, 1003.49907pt x 685.05937pt>
 File: img/SogAnag.png Graphic file (type png)
 <use img/SogAnag.png>
 Package pdftex.def Info: img/SogAnag.png  used on input line 20.
@@ -808,206 +810,163 @@ Overfull \hbox (33.31673pt too wide) in paragraph at lines 20--21
  [][] 
  []
 
-[5 <./img/SogAnag.PNG>] [6]
+[8 <./img/SogAnag.PNG>] [9]
 Underfull \vbox (badness 10000) detected at line 83
  []
 
-[7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 98--100
-
+[10] [11]
+Overfull \hbox (9.36436pt too wide) in alignment at lines 94--132
+ [] [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--110
-
+Underfull \vbox (badness 10000) detected at line 132
  []
 
-[9]
-Underfull \vbox (badness 7344) has occurred while \output is active []
-
- [10])
-[11] (./content/cap_4.tex
-Underfull \hbox (badness 10000) in paragraph at lines 4--9
-
+[12] [13]
+Underfull \vbox (badness 10000) detected at line 164
  []
 
-[12]
-Overfull \hbox (18.7434pt too wide) in paragraph at lines 49--50
-[][][][][][][][][][][][][][][][][][][][] 
+[14]
+Overfull \hbox (5.94435pt too wide) in alignment at lines 167--184
+ [] [] 
  []
 
 
-Overfull \hbox (25.79173pt too wide) in paragraph at lines 52--53
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13]
-Overfull \hbox (39.88841pt too wide) in paragraph at lines 58--59
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14]
-Overfull \hbox (18.7434pt too wide) in paragraph at lines 96--97
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (39.88841pt too wide) in paragraph at lines 112--114
-[][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (53.98509pt too wide) in paragraph at lines 116--117
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 124--125
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 126--127
-
+Underfull \vbox (badness 10000) detected at line 184
  []
 
 [15]
-Overfull \hbox (11.69505pt too wide) in paragraph at lines 149--151
-[][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (25.79173pt too wide) in paragraph at lines 156--157
-[][][][][][] 
- []
-
-
-Overfull \hbox (11.69505pt too wide) in paragraph at lines 159--160
-[][][][][][][][] 
+Underfull \vbox (badness 10000) detected at line 221
  []
 
 [16]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 10000) detected at line 252
+ []
 
- [17]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 255--257
 
- [18]
-Overfull \hbox (25.79173pt too wide) in paragraph at lines 266--267
-[][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (25.79173pt too wide) in paragraph at lines 267--268
-[][][][][][][][][][][][] 
+Underfull \vbox (badness 10000) detected at line 274
  []
 
+[18]
+Underfull \vbox (badness 10000) detected at line 298
+ []
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 312--315
 
- [19]
-Overfull \hbox (39.88841pt too wide) in paragraph at lines 301--302
-[][][][][][][][][][][][][][] 
  []
 
 [20]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [21]
-Overfull \hbox (46.93675pt too wide) in paragraph at lines 362--363
-[][][][][][][][][][][][][] 
+Underfull \vbox (badness 10000) detected at line 340
  []
 
 
-Overfull \hbox (25.79173pt too wide) in paragraph at lines 372--373
-[][][][][][][][][][][][][] 
+Underfull \vbox (badness 10000) detected at line 383
  []
 
-
-Overfull \hbox (11.69505pt too wide) in paragraph at lines 383--384
-[][][][][][][][][][][] 
- []
-
-
+[21]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [22]
-Overfull \hbox (11.69505pt too wide) in paragraph at lines 408--409
-[][][][][][][][][][][][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 390--392
+
  []
 
 
-Overfull \hbox (11.69505pt too wide) in paragraph at lines 413--414
-[][][][][][][][][][][][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 393--402
+
  []
 
-[23]
-Underfull \hbox (badness 10000) in paragraph at lines 434--435
+[23]) [24] [25] (./content/cap_4.tex
+(c:/texlive/2018/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+(c:/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
+)
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 24.
+
+(c:/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [26]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [27]
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+
+ []
+
+[28]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 92.
+ [29]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [30]
+[31]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32]
+Underfull \vbox (badness 2035) has occurred while \output is active []
+
+ [33]
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
 
  []
 
 )
-Underfull \hbox (badness 10000) in paragraph at lines 438--27
+Underfull \hbox (badness 10000) in paragraph at lines 280--27
 
  []
 
-[24] (./content/cap_5.tex
+[34] (./content/cap_5.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--6
 
  []
 
-) [25] [26]
-
-Package lastpage Warning: Rerun to get the references right on input line 30.
-
-
+) [35] [36] 
 AED: lastpage setting LastPage
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 30.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 30.
 (./Tesi.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 30.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 30.
-
-
-Package rerunfilecheck Warning: File `Tesi.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Tesi.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  36D00BFADD7310C43CC21F6127215DC1;1983.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `Tesi.out' has not changed.
+(rerunfilecheck)             Checksum: 85DE3EA46EE4DB1F6C789AD0D968FDD8;2166.
  ) 
 Here is how much of TeX's memory you used:
- 12050 strings out of 492639
- 172901 string characters out of 6133088
- 410383 words of memory out of 5000000
- 15279 multiletter control sequences out of 15000+600000
- 14825 words of font info for 35 fonts, out of 8000000 for 9000
+ 12322 strings out of 492639
+ 176350 string characters out of 6133088
+ 682892 words of memory out of 5000000
+ 15686 multiletter control sequences out of 15000+600000
+ 15138 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 46i,17n,46p,1245b,1753s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,17n,58p,1245b,1976s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texl
 ive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2018/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2018/texmf-dis
-t/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2018/texmf-dist/fonts/ty
-pe1/public/cm-super/sfbx1440.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public
-/cm-super/sfbx1728.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/
-sfcc1200.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfcc1440.p
-fb><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb><c:/tex
-live/2018/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2018/
-texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on Tesi.pdf (30 pages, 509340 bytes).
+texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2018/texmf-dist
+/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2018/texmf-dist/fonts/typ
+e1/public/cm-super/sfbx1728.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/
+cm-super/sfcc1200.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/s
+fcc1440.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pf
+b><c:/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texl
+ive/2018/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/texlive/2018/t
+exmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on Tesi.pdf (41 pages, 564827 bytes).
 PDF statistics:
- 715 PDF objects out of 1000 (max. 8388607)
- 663 compressed objects within 7 object streams
- 467 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 709 PDF objects out of 1000 (max. 8388607)
+ 646 compressed objects within 7 object streams
+ 316 named destinations out of 1000 (max. 500000)
+ 259 words of extra memory for PDF output out of 10000 (max. 10000000)
 

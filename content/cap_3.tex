@@ -81,14 +81,20 @@ Dati Generali:
 	\caption{Soggetti: Dati Generali}
 
 \end{longtable}
-
+\newpage
 \subsubsection{Condizioni di Vendita}
 Di seguito vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in (figura 1).
 
-%Figura Cond Comm
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.90]{img/CondVen.png}
+\caption{Anagrafica Condizioni di Vendita}
+\end{figure}
 
 Tramite questa form è possibile gestire i dati di vendita del cliente con record multipli la cui chiave è: Anno/Stagione/Marchio/Tipologia di Vendita.\\
-Con questa configurazione è possibile memorizzare per ogni cliente diverse configurazioni di dati per la vendita in dipendenza di diverse Stagioni e/o Marchi e/ Tipologie di vendita; nel caso in cui uno o più campi chiave siano vuoti il loro significato corrisponde a “tutte le ricorrenze corrispondenti”. Ad esempio nel caso (in figura) le condizioni di vendita sono nominalmente valide per tutte le stagioni, tutti i marchi e tutte le tipologie di vendita, mentre se fosse stato valorizzato l'anno/stagione, sarebbero state valide per tutti i marchi/tipologie di vendita di quel determinato anno/stagione.\\
+Con questa configurazione è possibile memorizzare per ogni cliente diverse configurazioni di dati per la vendita in dipendenza di diverse Stagioni e/o Marchi e/ Tipologie di vendita; nel caso in cui uno o più campi chiave siano vuoti il loro significato corrisponde a “tutte le ricorrenze corrispondenti”. Ad esempio nel caso (in figura) le condizioni di vendita sono nominalmente valide per tutte le stagioni, tutti i marchi e tutte le tipologie di vendita, mentre se fosse stato valorizzato l'anno/stagione, sarebbero state valide per tutti i marchi/tipologie di vendita di quel determinato anno/stagione.
+\newpage
 Descrizione dei dati generali delle Condizioni di Vendita:
 
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
@@ -139,8 +145,13 @@ Le anagrafiche Oggetti (Modello, Parte, Modello/Parte) sono gestite in due livel
 Il Modello (Style) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
 Il codice del Modello è una combinazione di caratteristiche anagrafiche, nello specifico [Codifica Anno/Stagione][Linea][Codice Modello][Variante] in rispettivamente 2, 3, 5 e 2 caratteri, per un totale di 12.\\
 Di seguito si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
-
-%Modelli
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.90]{img/Modello.png}
+\caption{AnagraficaModello}
+\end{figure}
+\newpage
 
 Dati di Testata:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
@@ -198,7 +209,13 @@ La parte è un codice che può avere molteplici funzioni:
 Essa è un codice univoco di 5 caratteri.\\
 Di seguito si può vedere una anagrafica di gestione Parti in Stealth 3000:
 
-%figura
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.90]{img/Parte.png}
+\caption{Anagrafica Parte}
+\end{figure}
+\newpage
 
 
 Dati di Testata:
@@ -255,7 +272,13 @@ Dati di base:
 L'associazione tra un Modelli e Parti crea il Modello-Parte, ovvero un prodotto finito generalmente, che eredita Taglie e Misure dal Modello. Il codice è una concatenazione del Modello e della Parte, che quindi generano un codice finale di 17 caratteri.
 Di seguito si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:\\
 
-%figura
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.90]{img/ModPar.png}
+\caption{Anagrafica Modello-Parte}
+\end{figure}
+\newpage
 
 Dati di Testata:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
@@ -313,7 +336,13 @@ nell’ambito del Marchio di appartenenza.\\
 Ci potrebbero essere dei Listini di Vendita importati da sistemi esterni che ne gestiscono il calcolo, la gestione e la sincronizzazione. Tali Listini non possono perciò essere modificati con le procedure qui di seguito descritte. La loro gestione è quindi demandata al sistema che li ha generati.\\
 Di seguito possiamo vedere un'anagrafica di gestione Stealth 3000 per il listini di Vendita, con la descrizione dei dati principali.\\
 
-%figura
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.90]{img/Listino.png}
+\caption{Anagrafica Listino di Vendita}
+\end{figure}
+\newpage
 
 Dati di Testata:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
@@ -386,6 +415,7 @@ Righe di listino
 	\caption{Listino di Vendita: Righe di Listino}
 
 \end{longtable}
+\newpage
 \subsection{Oracle PL/SQL Developer}
 PL/SQL Developer è un IDE creato per sviluppare unità di programma memorizzato in un database Oracle.\\
 SQL nasce come linguaggio per interrogazioni ad un database, che siano di estrazione o modifica dati, ma non permette di manipolare i dati in maniera estensiva, caratteristica invece di un linguaggio procedurale; istruzioni condizionali (IF ELSE) e cicli di iterazione, oltre a creazione di variabili sono le fondamenta alla base di programmi ed algoritmi complessi, ed è questo il vantaggio di PL/SQL.\\
@@ -393,21 +423,20 @@ SQL nasce come linguaggio per interrogazioni ad un database, che siano di estraz
 PL/SQL permette di creare script principalmente come funzioni, procedure oppure package che le contengono. Tutte le unità di programma sono accessibili da altre funzioni all'interno dello stesso database se appartengono allo stesso utente di accesso.\\
 Il codice PL/SQL ha una struttura specifica, organizzata a "blocchi" nel formato:\\ \textbf{BEGIN}\newline [content] \\ \textbf{exception}\newline [exception handling]\\ \textbf{END};\\ questo formato viene utilizzato all'interno di procedure e funzioni, e permette di utilizzare i costrutti di base dei linguaggi procedurali, come i cicli (for, while...) e istruzioni condizionali, oltre alla manipolazione delle variabili. Queste sono dichiarabili solo alla definizione di un programma, in una sezione presente appena dopo aver scritto il nome di una funzione o procedura, ma prima del comando \textbf{BEGIN}, nel formato\\ \textbf{Procedure/Function} <Nome procedura o funzione>(parametri) \textbf{IS}\newline [elenco variabili]\\ \textbf{BEGIN}\newline [content]\\ \textbf{exception}\newline [exception handling]\\ \textbf{END Nome procedura o funzione};\\ le variabili sono visibili solo all'interno del blocco in cui sono dichiarate, in particolare le variabili dichiarate internamente ad una funzione sono visibili solo all'interno di essa, mentre le variabili definite all'interno del package sono visibili a tutte le funzioni contenute in esso, e vengono definite \textbf{globali}.\\
 Oltre alle variabili standard tipiche di altri linguaggi procedurali, una delle caratteristiche sicuramente più utili di PL/SQL è quella di poter creare dei \textbf{cursor}; questi sono una dichiarazione di una query di selezione che poi potrà essere eseguita all'interno del programma ed il suo contenuto analizzato, tramite in comando \textbf{fetch}, il quale estrae una riga ed in successione le altre ogni volta che viene chiamato. Il contenuto del cursore può essere estratto in \textit{n} variabili a seconda delle colonne generate dalla query, oppure in una variabile di tipo \textit{nome\_cursore}\textbf{\%rowtype} dalla quale è possibile estrarre ogni campo della riga del cursore scrivendo \textit{nome\_rowtype}.\textit{nome\_campo}.\\
-Image\newline
-refcursor[...]\\
-Image\\
-L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.\newline
-[...]\\
-Image\\
+Una particolare forma di cursor sono i \textbf{refcursor} che permettono di trasformare una stringa di testo contenente una query, in una query vera e propria. L'utilità principale è quella di poter creare una query parametrica, nel senso che intere condizioni di filtro oppure dati da voler estrarre a seconda della richiesta, possibillità non concessa da una query standard. Una cosa a cui fare attenzione però è che finché si è in \textit{compile-time} non sarà altro che una stringa di test qualsiasi, ed eventuali errori nella stesura della query vengono scoperti soltanto in \textit{Run-time}, ovvero all'esecuzione del programma.\\
+L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.\\
+Ci sono due tipologie di package, dal punto di vista logico:
+\begin{itemize}
+\item \textbf{Package di utility}: essi hanno nella loro \textit{package specification} il riferimento a tutte le funzioni implementate nel package, dovendo esse venire richiamate singolarmente a seconda dell'utilità, ad esempio \textbf{\textit{MyPackage.GetUserName()}} e \textbf{\textit{MyPackage.GetUserAge()}};
+\item \textbf{Package di funzione}: questi hanno solitamente nella \textit{package specification} solo una funzione di 'entrata', la quale richiama al suo interno, nell'implementazione del package, tutte le varie funzioni definite privatamente, ad esempio \textbf{\textit{MyPackage.GetUserLog()}} può essere una funzione pubblica, la quale richiama nella definizione le funzioni private \textbf{\textit{MyPackage.GetUserAccessId()}} e \textbf{\textit{MyPackage.GetUserAction()}}, non accessibili dall'esterno per eventuali architetture stabilite.
+\end{itemize}
 \subsubsection{Debug di un programma}
-Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textit{debug} di una funzione o di un intero package. \newline
-[...]
-
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textit{debug} di una funzione o di un intero package.\\
+Questa funzione permette, come la maggior parte dei compilatori nei linguaggi di programmazione, di analizzare l'esecuzione del programma passo per passo, con l'obiettivo di individuare criticità in determinati punti del codice in \textbf{Run-Time}. Diventa particolarmente utile nel caso si abbia a che fare con i refcursor spiegati in precedenza, ma ovviamente la funzionalità è importante in ogni parte del programma ed è parte fondamentale della verifica del codice nella sua interezza.\\
+L'entrata in modalità di Debug decompila il package, per cui bisogna prestare molta attenzione nell'utilizzo della funzione, in quanto un package che utilizza una funzione che viene decompilata per debug, andrà in errore nella sua esecuzione fino a che non viene ricompilato il sottoprogramma in stato di debug.
 \subsubsection{Piano di esecuzione}
-Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzare il piano di esecuzione di una query per poterne analizzare i punti critici. \newline
-[...]\\
-Image
-
+Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzare il piano di esecuzione di una query per poterne analizzare i punti critici.\\
+Nella (figura) è rappresentato il piano di esecuzione di una query del programma di export. Il piano di esecuzione è una funzionalità che permette di vedere l'ordine e le modalità di accesso alle tabelle da parte di PL/SQL Developer, in particolare che tipo di indici utilizza per la giunzione delle tabelle.
 \subsection{Oracle Reports}
 Uno degli strumenti utilizzati dall'azienda fortemente collegato al database Oracle, è Oracle Reports, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
 Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\newline

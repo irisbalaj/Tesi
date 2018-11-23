@@ -437,11 +437,34 @@ L'entrata in modalità di Debug decompila il package, per cui bisogna prestare m
 \subsubsection{Piano di esecuzione}
 Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzare il piano di esecuzione di una query per poterne analizzare i punti critici.\\
 Nella (figura) è rappresentato il piano di esecuzione di una query del programma di export. Il piano di esecuzione è una funzionalità che permette di vedere l'ordine e le modalità di accesso alle tabelle da parte di PL/SQL Developer, in particolare che tipo di indici utilizza per la giunzione delle tabelle.
-\subsection{Oracle Reports}
-Uno degli strumenti utilizzati dall'azienda fortemente collegato al database Oracle, è Oracle Reports, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
-Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\newline
-[...]\\
- Breve Panoramica Oracle Reports e studio della piattaforma
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.83]{img/Piano.png}
+\caption{Piano di esecuzione}
+\end{figure}
+Con riferimento alla (figura) possiamo prendere in analisi alcune delle funzionalità del piano di esecizione. Le modalità di giunzione tra le tabelle vengono specificate dal tipo di indice utilizzato; i vari tipi di indice sono:
+\begin{itemize}
+\item Index Unique Scan: Recupera un singolo id di riga (\textit{rowid}) dall'indice;
+\item Index Range Scan: recupera uno o più id di riga, in ordine crescente;
+\item Index Full Scan: Recupera tutti gli id di riga dall'indice, in ordine crescente;
+\item Skip Scan: Recupera gli id di riga da un indice usato come concatenazione di campi, senza usare le colonne effettive
+\end{itemize}
+Il piano di esecuzione permette inoltre di vedere come cambiano le prestazioni, in termini di costo computazionale, al cambio di \textit{hint}, ovvero suggerimento all'ottimizzatore, specificato nella query con la dicitura /*+ nome\_hint */ subito dopo la keyword Select, nel casi si tratti di una query di selezione. I tipi di hint sono:
+\begin{itemize}
+\item All Rows: esplicita richiesta di utilizzare il costo computazionale più basso possibile
+\item First Rows(n): esplicita richiesta di utilizzare il costo computazionale più basso possibile per il numero \textit{n} di righe. L'ottimizzatore ignora questo hint nelle query di \textit{Delete}, \textit{Update} e nelle query di \textit{Select} contenenti la seguente sintassi: operatore \textit{Distinct}, funzioni aggregate, clausole \textit{Group By},\textit{Order By},\textit{For Update} e operatori  di \textbf{Set} (\textit{Union}, \textit{Intersect}, \textit{Minus} ecc.)
+\item Rule: Esplicita di disabilitare l'uso dell'ottimizzatore. Nella maggior parte dei casi è sconsigliato l'uso.
+\end{itemize}
+\subsection{Oracle Reports Builder}
+Uno degli strumenti utilizzati dall'azienda appartenente alla suit Oracle, è Oracle Reports Builder, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
+Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\\
+Il software permette di inserire una query di selezione come modello di partenza (figura) e mostra in real time il risultato all'interno del report costruito tramite l'editor apposito (figura) in fase di test (figura).
+%
+
+Viene data la possibilità di scrivere funzioni e trigger come unità di programma in PL/SQL, richiamabili in ogni momento, il che permette di manipolare i dati estratti dalle query di modello.
+
+
 
 \subsection{Tecnologia per l'aggiornamento}
 I Database Link sono uno strumento messo a disposizione da Oracle per la comunicazione unidirezionale verso un altro database server, sotto forma di puntatori salvati come record all'interno di una Data Dictionary Table, ovvero tabelle di sola lettura che forniscono informazioni sul database. La comunicazione è unidirezionale nel senso che se un database Oracle possiede un dblink verso un altro database, non significa che dal database di destinazione si possa accedere al database Oracle.\\

@@ -15,10 +15,12 @@ moredelim=**[is][\color{violet}]{?}{?},
 }
 \section{Sviluppo}
 \subsection{Sviluppo programma di export}
+\subsubsection{Architettura della solizione}
 La versione iniziale del programma di export è stata sviluppata nel 2007 da uno dei programmatori attualmente presenti in azienda e si basa sulla creazione di file di testo che vengono inviati al fornitore, perché si occupi di caricare i database degli showroom della campagna vendite.\\
 Dato che la decisione per l'upgrade è stata quella di utilizzare dei DbLink, sotto consiglio del tutor aziendale il primo passo è stato creare una copia esatta delle tabelle dei database di destinazione, all'interno del database di sviluppo, sul quale è stato sviluppato il prototipo. Il motivo della copia è che al momento della scrittura remota tramite dblink sarebbe stato molto più semplice fare un riversamento del contenuto di una tabella all'interno di un'altra, ed in puù in questo modo si ha una versione di backup locale dei dati, in modo che se ci dovessero essere errori nel trasferimento, utilizzando i vari sistemi di tracciamento adottati, che vedremo in seguito nello specifico, si può correggere facilmente ogni problematica. Inoltre in un sistema Eterogeneo (ovvero collegamento fra database server di tipo diverso, Oracle to Sql Server) non si possono eseguire manipolazioni dei dati all'interno delle query di inserimento, come ad esempio conversioni o formattazioni, che vengono quindi anticipate alla fase di caricamento nella parte locale.\\
 Una volta create tutte le tabelle locali, il passo successivo è stato prendere spunto dalle query del programma esistente ed ottenere tutti i dati necessari a ricreare le nuove query, con alcune modifiche proposte dai service manager, per popolarle. L'esecuzione del programma prevede anche degli input che talvolta possono essere facoltativi, ma la loro presenza va considerata all'interno delle query e ciò comporta l'utilizzo dei \textbf{refcursor} per permettere una parametrizzazione della query.\\
 Durante il popolamento della tabella locale, viene valorizzato il campo di log 'Data\_modifica' che verrà in seguito utilizzato per capire quali dati riversare nel database remoto, confrontandola con la data impostata all'inizio di esecuzione del programma.
+\subsubsection{Codice}
 Di seguito vediamo la porzione di codice che mostra il percorso di estrazione dati, popolamento della tabella locale ed infine popolamento della tabella remota relativa ai Modelli.\\
 Il primo passo è la definizione di una stringa di testo che in Run-Time sarà query eseguibile, contente l'interrogazione esatta necessara:
 \begin{lstlisting}[frame=single, style=base]
@@ -273,8 +275,135 @@ I dati estratti dal cursore per essere riversati nella tabella remota sono filtr
 Quanto emerso da elaborazioni su set ristretti di dati, i DbLink in un sistema eterogeneo sono piuttosto lenti, nel caso specifico vengono trasferiti circa 1200 record al secondo in inserimento, mentre circa la metà in fase di modifica data la presenza di condizioni di filtro (nella clausola WHERE) che necessariamente rallentano l'esecuzione. Inoltre la decisione di eseguire una \textbf{commit} ad ogni record, utile per avere dei dati in fase di esecuzione in caso il programma sia molto lungo nella sua esecuzione, rallenta il processo, rispetto ad avere una singola commit alla fine dell'esecuzione, al costo ovviamente di non aver inserito nessuna riga in caso di un qualsiasi errore.\\
 Nel complesso, l'autonomia dell'esecuzione, e soprattutto la decisione di schedulare il programma ogni notte per rendere marginale la questione della velocità di esecuzione, permettono di avere un vantaggio rispetto alla versione attuale del programma.
 \subsection{Sviluppo programma di import}
-La versione iniziale del programma di import è stata sviluppata nel 2002 da uno dei programmatori attualmente presenti in azienda e si basa su[...] \\
+\subsubsection{Architettura della soluzione}
+Il programma di import tratta gli ordini che vengono creati dai clienti che acquistano gli articoli durante la campagna vendite. Questi vengono poi importati direttamente nelle tabelle del database a cui fa riferimento Stealth, tramite un processo di caricamento di tabelle intermedie create specificatamente per i processi di import/export. Di conseguenza il programma di import in realtà si occupa solo di caricare le tabelle intermedie (che hanno lo stesso nome delle tabelle effettive, ma con l'aggiunta alla fine 'IEX') e di invocare la funzione standard di stealth di import per il caricamento definitivo.\\
+Prima di essere direttamente caricati nelle tabelle IEX, i dati vengono caricati dal database remoto a quello Oracle in alcune tabelle temporanee, ovvero che alla creazione venogno specificate come tali ed il loro contenuto esiste solo per la sessione corrente, quindi al di fuori dell'esecuzione saranno vuote.\\
+Ogni procedura eseguita da stealth ha un identificativo di richiesta, il quale a sua volta crea uno o più identificativi di lancio del programma, in base a quante volte viene lanciata l'esecuzione. Si è quindi deciso di creare un campo 'IdLancio' nelle tabelle degli ordini del database remoto, che avrebbe avuto valore nullo nel momento dell'inserimento dei dati nuovi da parte del programma che crea ordini negli showroom, ed avrebbe permesso quindi di capire quali fossero gli ordini da importare. Vengono quindi marchiati i record con id di lancio nullo per l'esecuzione dell'import, e riannullati in caso di errori, in maniera tale da essere consideratii nel lancio successivo.\\
+Per motivi di documentazione aziendale, viene infine aggiornato ogni record inserito con successo nelle tabelle del database remoto, valorizzando il campo 'NOrdAZ' delle tabelle remote di testate e righe.
+\subsubsection{Codice}
+Di seguito si può vedere la funzione principale che gestisce il flusso dei dati, ed a sua volta chiama le varie funzioni necessarie per estrarre e definitivamente inserire i dati nel database di Stealth, oltre a notificare al database remoto i record caricati con successo:
+\begin{lstlisting}[frame=single, style=base]
+^procedure^ elabora ^is^
+--Cursori dati dalle tabelle temporanee
+^cursor^ ?ctes? ^is^
+  <select< *
+    <from< pindtto_tesord_crm
+<order by< cd_stagion, codage;
 
+^cursor^ ?crig? (
+            p_oct_annorif ^in^ number,
+            p_oct_codsta  ^in^ varchar2,
+            p_oct_codage  ^in^ varchar2,
+            p_oct_dtord   ^in^ date,
+            p_oct_numord  ^in^ varchar2) ^is^
+  <select< *
+    <from< pindtto_rigord_crm
+   <where< cd_stagion = ?p_oct_annorif?||
+                      ?p_oct_codsta?
+     <and< codage     = ?p_oct_codage?
+     <and< dtord      = ?p_oct_dtord?
+     <and< numord     = ?p_oct_numord?
+^order by^ numrig;
+
+?rcode?      ^boolean^ := ^true^;
+
+^BEGIN^
+  
+--Import dati in tabelle temporanee
+  ^if^ ?P_SOC_UTE? = '01' ^then^
+    ?b_import? := import_crm_tables_eur;
+  ^elsif^ ?P_SOC_UTE? = '45' ^then^
+    ?b_import? := import_crm_tables_jap;
+  ^elsif^ ?P_SOC_UTE? = '48' ^then^
+    ?b_import? := import_crm_tables_usa;
+  ^end if^;
+
+  ^if^ ?b_import? ^then^ 
+
+    ^open^ ?ctes?;
+    ^loop
+      fetch^ ?ctes? ^into^ ?roct?;
+      ^exit when^ ?ctes?%notfound;
+
+      ?v_agente?   := ?roct?.codage;
+      ?v_stg_anno? := ^to_number^(^substr^(?roct?.cd_stagion,1,4));
+      ?v_stg_cod?  := (^substr^(?roct?.cd_stagion,5,1));
+      --Identificativo di testata
+      ^begin^
+        <select< ^s3sq_oct_iex^.nextval <into< ?voct_id? ^from dual^;
+      ^exception
+      when others then
+        s3ksysmess.batch_messaggi^(£11500£, ^sysdate^, 'S3SQ_OCT_IEX');
+      ^end^;
+
+      -- Inserimento TESTATA
+      ?rcode? := ins_testata(?roct?, ?voct_id?);
+
+      -- Inserimento RIGHE e TAGLIE
+      ?vocr_riga?:=0;
+
+      ^open^ ?crig?(^substr^(?roct?.cd_stagion,1,4),
+                ^substr^(?roct?.cd_stagion,5,1),
+                ?v_agente?,
+                ?roct?.dtord,
+                ?roct?.numord);
+      ^loop
+        fetch^ ?crig? ^into^ ?rocr?;
+        ^exit when^ ?crig?%notfound;
+          
+        ?vocr_riga? := ?vocr_riga? + 1;
+        ?rcode?     := ins_riga(?roct?, ?rocr?, ?voct_id?, ?roct?.dtacons);
+
+      ^end loop^;
+      ^close^ ?crig?;
+
+    ^end loop^;
+    ^close^ ?ctes?;
+
+    ^commit^;
+
+    -- Richiamo Import per gli ordini caricati nelle IEX
+    ^if^ ?b_importa? ^then^
+      lancio_import;
+    ^end if^;
+
+
+    ^if^ ?P_SOC_UTE? = '01' ^then^
+      aggiorna_tab_remote_eur;
+    ^elsif^ ?P_SOC_UTE? = '45' ^then^
+      aggiorna_tab_remote_jap;
+    ^elsif^ ?P_SOC_UTE? = '48' ^then^
+      aggiorna_tab_remote_usa;
+    ^end if^;
+
+  ^end if^;
+
+^end^ elabora;
+
+
+\end{lstlisting}
 
 \subsection{Creazione report di import}
-I report generati dal programma di import si basano su dati presenti nel database, per cui l'aggiornamento del progetto non ne comporta importanti modifiche; è comunque stato richiesto un minimo intervento in ottica migliorativa [...]\\
+I report generati dal programma di import si basano su dati presenti nel database, per cui l'aggiornamento del progetto non ne comporta importanti modifiche; è comunque stato richiesto un minimo intervento in ottica migliorativa, in particolare la query che genera il modello è stata aggiornata in (figura) per ottenere i dati dalla tabella temporanea in cui vengono inizialmente caricati i dati. Va precisato che l'esecuzione del programma che genera i Report da Oracle Reports Builder è \textbf{sincrono}, per cui la sessione del lancio di Stealth è ancora aperta ed attende la generazione dei documenti; se si fosse deciso di rendere il lancio dei report asincrono, si avrebbe avuto un leggero miglioramento nelle prestazioni, non dovendo far attendere il programma, ma si sarebbe dovuta cambiare l'architettura standard poiché la sessione in cui la tabella temporanea veniva caricata, sarebbe terminata prima che la query che genera il modello di Oracle Reports Builder venisse eseguita.\\
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.60]{img/QueryRep.png}
+\caption{Oracle Reports Builder: Modello da Query}
+\end{figure}
+\newpage
+Sono state inoltre modificate alcune delle program unit ed aggiunte altre, visibili in (figura) per rispondere ad alcune richieste dei Service Manager.\\
+
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.85]{img/RepPU.png}
+\caption{Oracle Reports Builder: Program Unit}
+\end{figure}
+In generale l'attività ha richiesto poco tempo avendo il layout in (figura) valido dalla versione attuale, così come il contenuto di alcune program unit.
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.35]{img/ReportDIA.png}
+\caption{Oracle Reports Builder: Layout Editor}
+\end{figure}

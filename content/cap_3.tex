@@ -12,7 +12,7 @@ Sono una qualunque entità fisica, giuridica, gestionale, organizzativa con cui 
 Esempi di Soggetti sono: Clienti, Fornitori, Agenti,Terzisti, Importatori, Distribution Centers, Reparti interni.\\
 L'archivio dei soggetti ne contiene i dati anagrafici fissi nel tempo (Ragione Sociale, Partita IVA, Indirizzo, ecc). Il soggetto ha una lista di indirizzi associati che ne definiscono punti di riferimento, ad esempio potrebbe avere un indirizzo di fatturazione ed un indirizzo di spedizione diversi tra loro.\\
 Il soggetto può avere contemporaneamente più \textbf{Ruoli}; Esso rappresenta il tipo di rapporto che il Soggetto ha con l'Azienda, e può essere di tre tipi: \textbf{Cliente}, \textbf{Fornitore} o \textbf{Agente}. A seconda del ruolo ci sono differenti \textbf{Condizioni Commerciali}.
-Di seguito la form di anagrafica Soggetto vista da Stealth 3000:
+Di seguito in (figura) la form di anagrafica Soggetto vista da Stealth 3000:
 \newpage
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -83,7 +83,7 @@ Dati Generali:
 \end{longtable}
 \newpage
 \subsubsection{Condizioni di Vendita}
-Di seguito vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in (figura 1).
+Di seguito in (figura) vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in (figura 1).
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -144,7 +144,7 @@ Le anagrafiche Oggetti (Modello, Parte, Modello/Parte) sono gestite in due livel
 
 Il Modello (Style) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
 Il codice del Modello è una combinazione di caratteristiche anagrafiche, nello specifico [Codifica Anno/Stagione][Linea][Codice Modello][Variante] in rispettivamente 2, 3, 5 e 2 caratteri, per un totale di 12.\\
-Di seguito si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
+Di seguito in (figura) si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
@@ -207,7 +207,7 @@ La parte è un codice che può avere molteplici funzioni:
 \item Codice corrispondente ad un oggetto non fisico utilizzato per l’inserimento in documenti aziendali di voci immateriali quali: rimborso spese di trasporto, addebito bolli, Servizio di catering, ecc...
 \end{itemize}
 Essa è un codice univoco di 5 caratteri.\\
-Di seguito si può vedere una anagrafica di gestione Parti in Stealth 3000:
+Di seguito in (figura) si può vedere una anagrafica di gestione Parti in Stealth 3000:
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -269,8 +269,8 @@ Dati di base:
 \end{longtable}
 
 \subsubsection{Modelli-Parte}
-L'associazione tra un Modelli e Parti crea il Modello-Parte, ovvero un prodotto finito generalmente, che eredita Taglie e Misure dal Modello. Il codice è una concatenazione del Modello e della Parte, che quindi generano un codice finale di 17 caratteri.
-Di seguito si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:\\
+L'associazione tra un Modelli e Parti crea il Modello-Parte, ovvero un prodotto finito generalmente, che eredita Taglie e Misure dal Modello. Il codice è una concatenazione del Modello e della Parte, che quindi generano un codice finale di 17 caratteri.\\
+Di seguito in (figura) si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:\\
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -334,7 +334,7 @@ ed eventualmente di una specifica
 \end{itemize}
 nell’ambito del Marchio di appartenenza.\\
 Ci potrebbero essere dei Listini di Vendita importati da sistemi esterni che ne gestiscono il calcolo, la gestione e la sincronizzazione. Tali Listini non possono perciò essere modificati con le procedure qui di seguito descritte. La loro gestione è quindi demandata al sistema che li ha generati.\\
-Di seguito possiamo vedere un'anagrafica di gestione Stealth 3000 per il listini di Vendita, con la descrizione dei dati principali.\\
+Di seguito in (figura) possiamo vedere un'anagrafica di gestione Stealth 3000 per il listini di Vendita, con la descrizione dei dati principali.\\
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -459,14 +459,37 @@ Il piano di esecuzione permette inoltre di vedere come cambiano le prestazioni, 
 \subsection{Oracle Reports Builder}
 Uno degli strumenti utilizzati dall'azienda appartenente alla suit Oracle, è Oracle Reports Builder, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
 Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\\
-Il software permette di inserire una query di selezione come modello di partenza (figura) e mostra in real time il risultato all'interno del report costruito tramite l'editor apposito (figura) in fase di test (figura).
-%
-
+Il software permette di inserire una o più query di selezione come modello di partenza (figura) e mostra in real time il risultato all'interno del report costruito tramite l'editor apposito (figura)
+\newpage
+\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.83]{img/Modelbasic.png}
+\caption{Oracle Reports Builder: Modello da Query}
+\end{figure}\begin{figure}[!h]
+\thispagestyle{empty}
+\centering
+\includegraphics[scale=0.50]{img/Editor.jpg}
+\caption{Oracle Reports Builder: Editor}
+\end{figure}
 Viene data la possibilità di scrivere funzioni e trigger come unità di programma in PL/SQL, richiamabili in ogni momento, il che permette di manipolare i dati estratti dalle query di modello.
-
-
 
 \subsection{Tecnologia per l'aggiornamento}
 I Database Link sono uno strumento messo a disposizione da Oracle per la comunicazione unidirezionale verso un altro database server, sotto forma di puntatori salvati come record all'interno di una Data Dictionary Table, ovvero tabelle di sola lettura che forniscono informazioni sul database. La comunicazione è unidirezionale nel senso che se un database Oracle possiede un dblink verso un altro database, non significa che dal database di destinazione si possa accedere al database Oracle.\\
-Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{global database name} all'interno del dominio di rete.\newline
-[...]
+Il vantaggio principale nell'utilizzo dei Database Links, è che permette l'accesso ad un utente ad un database remoto i cui oggetti hanno privilegi impostati dal proprietario.\\
+Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{global database name} all'interno del dominio di rete. Tipicamente, un Database Link ha lo stesso nome del Globa Database Name del database remoto a cui fa riferimento.\\
+I tipi di database Link sono i seguenti:
+\begin{itemize}
+\item Privato: Crea un link in uno specifico scgema del database locale. Solo il proprietario del database link può utilizzarlo per accedere al database remoto. 
+\item Publico: Crea un link valido per tutti il databse. Tutti gli utenti e programmi PL/SQL del database possono usare il dblink per accedere agli oggetti del database remoto.
+\item Globale: Crea un link valido in tutta la rete, accessibile a tutti gli utenti e programmi PL/SQL di tutti i database 
+\end{itemize}
+Una volta creato il databse Link si è soliti creare un sinonimo utilizzato per riferirsi a tale link, nascondendo il nome del database.\\
+Tramite Database Link non è permesso:
+\begin{itemize}
+\item pemettere i privilegi agli oggetti remoti (\textit{grant});
+\item eseguire operazioni di \textit{Describe}, ovvero una visualizzazione della struttura degli oggetti di riferimento;
+\item Definire ruoli ad utenti in un database remoto;
+\item Assegnarsi ruoli in un database remoto;
+\item eseguire join tra databaseche utilizzano connessioni server condivise.
+\end{itemize}

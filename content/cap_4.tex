@@ -17,7 +17,7 @@ moredelim=**[is][\color{violet}]{?}{?},
 \subsection{Sviluppo programma di export}
 \subsubsection{Architettura della solizione}
 La versione iniziale del programma di export è stata sviluppata nel 2007 da uno dei programmatori attualmente presenti in azienda e si basa sulla creazione di file di testo che vengono inviati al fornitore, perché si occupi di caricare i database degli showroom della campagna vendite.\\
-Dato che la decisione per l'upgrade è stata quella di utilizzare dei DbLink, sotto consiglio del tutor aziendale il primo passo è stato creare una copia esatta delle tabelle dei database di destinazione, all'interno del database di sviluppo, sul quale è stato sviluppato il prototipo. Il motivo della copia è che al momento della scrittura remota tramite dblink sarebbe stato molto più semplice fare un riversamento del contenuto di una tabella all'interno di un'altra, ed in puù in questo modo si ha una versione di backup locale dei dati, in modo che se ci dovessero essere errori nel trasferimento, utilizzando i vari sistemi di tracciamento adottati, che vedremo in seguito nello specifico, si può correggere facilmente ogni problematica. Inoltre in un sistema Eterogeneo (ovvero collegamento fra database server di tipo diverso, Oracle to Sql Server) non si possono eseguire manipolazioni dei dati all'interno delle query di inserimento, come ad esempio conversioni o formattazioni, che vengono quindi anticipate alla fase di caricamento nella parte locale.\\
+Dato che la decisione per l'aggiornamento è stata quella di utilizzare dei DbLink, sotto consiglio del tutor aziendale il primo passo è stato creare una copia esatta delle tabelle dei database di destinazione, all'interno del database di sviluppo, sul quale è stato sviluppato il prototipo. Il motivo della copia è che al momento della scrittura remota tramite dblink sarebbe stato molto più semplice fare un riversamento del contenuto di una tabella all'interno di un'altra, ed in più in questo modo si ha una versione di backup locale dei dati, in modo che se ci dovessero essere errori nel trasferimento,  si possa correggere facilmente ogni problematica. \\Inoltre in un sistema Eterogeneo (ovvero collegamento fra database server di tipo diverso, Oracle to Sql Server) non si possono eseguire manipolazioni dei dati all'interno delle query di inserimento, come ad esempio conversioni o formattazioni, che vengono quindi anticipate alla fase di caricamento nella parte locale.\\
 Una volta create tutte le tabelle locali, il passo successivo è stato prendere spunto dalle query del programma esistente ed ottenere tutti i dati necessari a ricreare le nuove query, con alcune modifiche proposte dai service manager, per popolarle. L'esecuzione del programma prevede anche degli input che talvolta possono essere facoltativi, ma la loro presenza va considerata all'interno delle query e ciò comporta l'utilizzo dei \textbf{refcursor} per permettere una parametrizzazione della query.\\
 Durante il popolamento della tabella locale, viene valorizzato il campo di log 'Data\_modifica' che verrà in seguito utilizzato per capire quali dati riversare nel database remoto, confrontandola con la data impostata all'inizio di esecuzione del programma.
 \subsubsection{Codice}
@@ -85,7 +85,7 @@ END IF;
 \end{lstlisting}
 La sintassi di PL/SQL prevede che la concatenazione fra stringhe di testo (delimitate da apici) avvenga tramite il 'pipe' due volte in successione, inoltre l'inserimento di una variabile all'interno della stringa va gestito con cautela, in quanto va fatta una distinzione sul tipo della variabile inserita: \\
 \begin{itemize}
-\item se è di tipo alfanumerico vanno utilizzati 3 apici in chiusura della stringa, seguiti dalla variabile ed a sua volta seguita da altri 3 apici, ogni parte concatenata con l'altra; questo perché ci deve essere una forma di escape tra gli apici che distinguono il testo della query in stato di stringa ed il contenuto della variabile, che in Run-Time, quando viene effettivamente eseguita la query, diventa un valore alfanumerico senza significato per un compilatore, non utilizzabile in un confronto o una selezione.\\
+\item se è di tipo alfanumerico vanno utilizzati 3 apici in chiusura della stringa, seguiti dalla variabile ed a sua volta seguita da altri 3 apici, ogni parte concatenata con l'altra; questo perché ci deve essere una forma di \textit{escape} tra gli apici che distinguono il testo della query in stato di stringa ed il contenuto della variabile, che in Run-Time, quando viene effettivamente eseguita la query, diventa un valore alfanumerico senza significato per un compilatore, non utilizzabile in un confronto o una selezione.\\
 \item se è di tpo intero basta una concatenazione senza apici aggiuntivi
 \end{itemize}
 
@@ -176,9 +176,9 @@ La fase successiva all'estrazione dei dati è quella di caricarli nella tabella 
   ^close^ ?Cur_mod?;
 \end{lstlisting}
 
-In questo blocco di codice possiamo vedere un'applicazione dei refcursor, il cui contenuto viene iterato per ogni record estratto dalla query definita sopra, ed ogni riga viene utilizzata come testata per un secondo cursore interno, il quale estrae tutti i colori disponibili per quel modello-parte.\\
-Si può inoltre vedere una gestione degli errori, permessa dalla struttura \textbf{BEGIN/exception/END} di PLSQL, in cui un errore di tipo 'chiave logica duplicata' viene gestito con un ulteriore blocco in cui viene aggiornato il valore del record per la chiave estratta. Eventuali errori generici vengono gestiti con un sistema di messaggistica sottoforma di Log, messo a disposizione da Stealth.\\
-All'inizio della funzione che contiene i due blocchi di codice precedenti, viene assegnato il valore della data attuale alla variabile v\_sysd grazie alla keyword \textbf{sysdate}, e quest'ultima sarà il filtro per decidere quali valori della tabella locale verranno trasferiti nel database remoto, come si vede nel seguente blocco di codice finale:
+In questo blocco di codice possiamo vedere un'applicazione dei \textit{refcursor}, il cui contenuto viene iterato per ogni record estratto dalla query definita sopra, ed ogni riga viene inserita nella tabella locale dei Mmodelli.\\
+Si può inoltre vedere una gestione degli errori, permessa dalla struttura \textbf{BEGIN/exception/END} di PLSQL, in cui un errore di tipo 'chiave logica duplicata' viene gestito con un ulteriore blocco in cui viene aggiornato il valore del record per la chiave estratta. Eventuali errori generici vengono gestiti con un sistema di messaggistica sottoforma di \textit{log}, messo a disposizione da Stealth.\\
+All'inizio della funzione che contiene i due blocchi di codice precedenti, viene assegnato il valore della data attuale alla variabile \textit{v\_sysd} grazie alla keyword \textbf{sysdate}, e quest'ultima sarà il filtro per decidere quali valori della tabella locale verranno trasferiti nel database remoto, come si vede nel seguente blocco di codice finale:
 \begin{lstlisting}[frame=single, style=base]
 ^BEGIN^
   ^FOR^ ?CUR_MOD? ^IN^ (
@@ -384,7 +384,7 @@ Di seguito si può vedere la funzione principale che gestisce il flusso dei dati
 \end{lstlisting}
 
 \subsection{Creazione report di import}
-I report generati dal programma di import si basano su dati presenti nel database, per cui l'aggiornamento del progetto non ne comporta importanti modifiche; è comunque stato richiesto un minimo intervento in ottica migliorativa, in particolare la query che genera il modello è stata aggiornata in (figura) per ottenere i dati dalla tabella temporanea in cui vengono inizialmente caricati i dati. Va precisato che l'esecuzione del programma che genera i Report da Oracle Reports Builder è \textbf{sincrono}, per cui la sessione del lancio di Stealth è ancora aperta ed attende la generazione dei documenti; se si fosse deciso di rendere il lancio dei report asincrono, si avrebbe avuto un leggero miglioramento nelle prestazioni, non dovendo far attendere il programma, ma si sarebbe dovuta cambiare l'architettura standard poiché la sessione in cui la tabella temporanea veniva caricata, sarebbe terminata prima che la query che genera il modello di Oracle Reports Builder venisse eseguita.\\
+I report generati dal programma di import si basano su dati presenti nel database, per cui l'aggiornamento del progetto non ne comporta importanti modifiche; è comunque stato richiesto un minimo intervento in ottica migliorativa, in particolare la query che genera il modello è stata aggiornata in \textit{figura 11} per ottenere i dati dalla tabella temporanea in cui vengono inizialmente caricati i dati. Va precisato che l'esecuzione del programma che genera i Report da Oracle Reports Builder è \textbf{sincrono}, per cui la sessione del lancio di Stealth è ancora aperta ed attende la generazione dei documenti; se si fosse deciso di rendere il lancio dei report asincrono, si avrebbe avuto un leggero miglioramento nelle prestazioni, non dovendo far attendere il programma, ma si sarebbe dovuta cambiare l'architettura standard poiché la sessione in cui la tabella temporanea veniva caricata, sarebbe terminata prima che la query che genera il modello di Oracle Reports Builder venisse eseguita.\\
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
@@ -392,7 +392,7 @@ I report generati dal programma di import si basano su dati presenti nel databas
 \caption{Oracle Reports Builder: Modello da Query}
 \end{figure}
 \newpage
-Sono state inoltre modificate alcune delle program unit ed aggiunte altre, visibili in (figura) per rispondere ad alcune richieste dei Service Manager.\\
+Sono state inoltre modificate alcune delle program unit ed aggiunte altre, visibili in \textit{figura 12} per rispondere ad alcune richieste dei Service Manager.\\
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -400,7 +400,7 @@ Sono state inoltre modificate alcune delle program unit ed aggiunte altre, visib
 \includegraphics[scale=0.85]{img/RepPU.png}
 \caption{Oracle Reports Builder: Program Unit}
 \end{figure}
-In generale l'attività ha richiesto poco tempo avendo il layout in (figura) valido dalla versione attuale, così come il contenuto di alcune program unit.
+In generale l'attività ha richiesto poco tempo avendo il layout in \textit{figura 13} valido dalla versione attuale, così come il contenuto di alcune program unit.
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering

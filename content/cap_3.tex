@@ -1,19 +1,17 @@
-\fancyhead[LO, RE] {Studio delle Tecnologie}
-\section{Studio delle Tecnologie}
-\subsection{Stealth 3000}
+\fancyhead[LO, RE] {Capitolo 3: Studio delle Tecnologie}
+\section{Stealth 3000}
 La maggior parte delle aziende tessili di larga scala in Italia utilizza un \textit{\textbf{ERP\ped{g}}} specifico, Stealth 3000, sviluppato dall'azienda italiana Dedagroup.\\
 In quanto ERP connette tutti gli applicativi utilizzati dall'azienda, oltre ad essere un gestionale disegnato specificatamente per il mercato della moda. \\
-Si tratta di un'\textit{\textbf{apple\ped{g}}}t Java, accessibile solo internamente all'azienda da Internet Explorer e Firefox.\\
+Si tratta di un'\textit{\textbf{applet\ped{g}}} Java, accessibile solo internamente all'azienda da Internet Explorer e Firefox.\\
 Di seguito verrà illustrato il funzionamento di Stealth 3000 negli ambiti che sono stati toccati dal progetto CRM, che sono solo una minima parte di quanto offerto dall'ERP. Gli ambiti in questione sono i Soggetti, ovvero i clienti in generale, e le loro condizioni commerciali, gli oggetti e le loro classificazioni, ovvero gli articoli che vengono venduti ed infine i listini di vendita.\\
 Tutti i contenuti anagrafici dei dati rappresentati sono fittizi, ottenuti dai manuali d'uso a scopo formativo.
 
-\subsubsection{Soggetto}
+\subsection{Soggetto}
 Sono una qualunque entità fisica, giuridica, gestionale, organizzativa con cui l'azienda intrattiene rapporti di business.\\
 Esempi di Soggetti sono: Clienti, Fornitori, Agenti,Terzisti, Importatori, Distribution Centers, Reparti interni.\\
 L'archivio dei soggetti ne contiene i dati anagrafici fissi nel tempo (Ragione Sociale, Partita IVA, Indirizzo, ecc). Il soggetto ha una lista di indirizzi associati che ne definiscono punti di riferimento, ad esempio potrebbe avere un indirizzo di fatturazione ed un indirizzo di spedizione diversi tra loro.\\
 Il soggetto può avere contemporaneamente più \textbf{Ruoli}; Esso rappresenta il tipo di rapporto che il Soggetto ha con l'Azienda, e può essere di tre tipi: \textbf{Cliente}, \textbf{Fornitore} o \textbf{Agente}. A seconda del ruolo ci sono differenti \textbf{Condizioni Commerciali}.
-Di seguito in \textit{figura 2} la form di anagrafica Soggetto vista da Stealth 3000:
-\newpage
+Di seguito in \textit{figura 3.1} la form di anagrafica Soggetto vista da Stealth 3000:
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
@@ -21,7 +19,7 @@ Di seguito in \textit{figura 2} la form di anagrafica Soggetto vista da Stealth 
 \caption{Anagrafica Soggetti}
 \end{figure}
 \newpage
-Dati di testata:
+In \textit{tabella 3.1} vediamo i Dati Testata, ovvero il blocco principale utilizzato come filtro di ricerca o di dati primari:
 \begin{table}[!h]
 	\begin{center}
 	
@@ -39,11 +37,11 @@ Fornitore &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Codice corrispondente al ruolo F
 Agente &  \begin{tabular}{@{}c@{}@{}@{}@{}}  Codice corrispondente al ruolo agente (se esistente)\\  del soggetto. Il codice sarà assegnato\\  in automatico alla generazione del ruolo\\ ed il campo presente servirà per ricerche \\mirate ai soli ruoli agente.\end{tabular}\\ \hline
 
 \end{tabular} 
-	\caption{Soggetti: Dati di testata}
+	\caption{Soggetti: Dati di Testata}
 \end{center}
 \end{table}
 \newpage
-Dati Generali:
+In \textit{tabella 3.2} vediamo i Dati Generali, ovvero il blocco secondario di maggior importanza, utilizzato come dettaglio dei dati primari:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -82,8 +80,8 @@ Dati Generali:
 
 \end{longtable}
 \newpage
-\subsubsection{Condizioni di Vendita}
-Di seguito in \textit{figura 3} vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in \textit{figura 1}.
+\subsection{Condizioni di Vendita}
+Di seguito in \textit{figura 3.2} vediamo la form delle Condizioni di Vendita (colloquialmente, Condizioni Commerciali) accessibili dalla schermata dei Soggetti in \textit{figura 3.1}.
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -93,9 +91,9 @@ Di seguito in \textit{figura 3} vediamo la form delle Condizioni di Vendita (col
 \end{figure}
 
 Tramite questa form è possibile gestire i dati di vendita del cliente con \textbf{\textit{record\ped{g}}} multipli la cui chiave è: Anno/Stagione/Marchio/Tipologia di Vendita.\\
-Con questa configurazione è possibile memorizzare per ogni cliente diverse configurazioni di dati per la vendita in dipendenza di diverse Stagioni e/o Marchi e/ Tipologie di vendita; nel caso in cui uno o più campi chiave siano vuoti il loro significato corrisponde a “tutte le ricorrenze corrispondenti”. Ad esempio nel caso in \textit{figura 3} le condizioni di vendita sono nominalmente valide per tutte le stagioni, tutti i marchi e tutte le tipologie di vendita, mentre se fosse stato valorizzato l'anno/stagione, sarebbero state valide per tutti i marchi/tipologie di vendita di quel determinato anno/stagione.
+Con questa configurazione è possibile memorizzare per ogni cliente diverse configurazioni di dati per la vendita in dipendenza di diverse Stagioni e/o Marchi e/ Tipologie di vendita; nel caso in cui uno o più campi chiave siano vuoti il loro significato corrisponde a “tutte le ricorrenze corrispondenti”. Ad esempio nel caso in \textit{figura 3.2} le condizioni di vendita sono nominalmente valide per tutte le stagioni, tutti i marchi e tutte le tipologie di vendita, mentre se fosse stato valorizzato l'anno/stagione, sarebbero state valide per tutti i marchi/tipologie di vendita di quel determinato anno/stagione.
 \newpage
-Descrizione dei dati generali delle Condizioni di Vendita:
+In \textit{tabella 3.3} vediamo la descrizione dei dati generali delle Condizioni di Vendita:
 
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
@@ -137,23 +135,23 @@ Descrizione dei dati generali delle Condizioni di Vendita:
 
 \end{longtable}
 
-\subsubsection{Modelli}
+\subsection{Modelli}
 Gli Oggetti nel package Stealth 3000 sono tutti i tipi di prodotto che possono essere gestiti come beni d’acquisto (materie prime e componenti di Distinta Base), acquistati e/o prodotti, gestiti a magazzino, venduti e così via. \\
 Le anagrafiche Oggetti (Modello, Parte, Modello/Parte) sono gestite in due livelli: a livello di 'Gruppo', ovvero pubbliche a tutte le società e a livello 'Società', per cui l'appartenenza è limitata alla stessa, che è l'unica in grado di apportare modifiche.\\
  La maggior parte dei dati delle anagrafiche sono a livello Pubblico, mentre solo alcuni dati di Vendita e Gestione sono a livello Società.
 
 Il Modello (\textit{Style}) è l’oggetto che descrive la forma generica con cui classificare i Prodotti da vendere (Abiti, Giacche, Gonne ecc...). Hanno taglie e misure ma non colori o tessuti associati, non si rappresentano oggetti fisici.\\ 
 Il codice del Modello è una combinazione di caratteristiche anagrafiche, nello specifico [Codifica Anno/Stagione][Linea][Codice Modello][Variante] in rispettivamente 2, 3, 5 e 2 caratteri, per un totale di 12.\\
-Di seguito in \textit{figura 4} si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
+Di seguito in \textit{figura 3.3} si può vedere un'anagrafica di gestione dei Modelli da Stealth 3000:
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
 \includegraphics[scale=0.90]{img/Modello.png}
-\caption{AnagraficaModello}
+\caption{Anagrafica Modello}
 \end{figure}
 \newpage
 
-Dati di Testata:
+In \textit{tabella 3.4} vediamo i Dati di Testata dell'anagrafica dei Modelli, ovvero il blocco principale usato come filtro di ricerca o inserimento dei dati primari:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -174,7 +172,7 @@ Dati di Testata:
 
 \end{longtable}
 
-Dati Base:
+In \textit{tabella 3.5} vediamo i Dati di Base dell'anagrafica dei Modelli, ovvero il blocco principale di dati di dettaglio:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -195,7 +193,7 @@ Dati Base:
 \end{longtable}
 
 
-\subsubsection{Parti}
+\subsection{Parti}
 La parte è un codice che può avere molteplici funzioni:
 \begin{itemize}
 \item Descrizione del materiale o dell’aspetto complementare ad un codice modello per la formazione del Modello-Parte.
@@ -207,7 +205,7 @@ La parte è un codice che può avere molteplici funzioni:
 \item Codice corrispondente ad un oggetto non fisico utilizzato per l’inserimento in documenti aziendali di voci immateriali quali: rimborso spese di trasporto, addebito bolli, Servizio di catering, ecc...
 \end{itemize}
 Essa è un codice univoco di 5 caratteri.\\
-Di seguito in \textit{figura 5} si può vedere una anagrafica di gestione Parti in Stealth 3000:
+Di seguito in \textit{figura 3.4} si può vedere una anagrafica di gestione Parti in Stealth 3000:
 
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -218,7 +216,7 @@ Di seguito in \textit{figura 5} si può vedere una anagrafica di gestione Parti 
 \newpage
 
 
-Dati di Testata:
+In \textit{tabella 3.6} vediamo i Dati di Testata delle Parti, ovvero il blocco principale usato come filtro di ricerca o inserimento dei dati primari:
 
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
@@ -237,7 +235,7 @@ Dati di Testata:
 
 \end{longtable}
 
-Dati di base:
+In \textit{tabella 3.7} vediamo i Dati di Base dell'anagrafica delle Parti, ovvero il blocco principale di dati di dettaglio:
 
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
@@ -268,10 +266,9 @@ Dati di base:
 
 \end{longtable}
 
-\subsubsection{Modelli-Parte}
+\subsection{Modelli-Parte}
 L'associazione tra Modelli e Parti crea il Modello-Parte, ovvero un prodotto finito generalmente, che eredita Taglie e Misure dal Modello. Il codice è una concatenazione del Modello e della Parte, che quindi generano un codice finale di 17 caratteri.\\
-Di seguito in \textit{figura 6} si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:\\
-
+Di seguito in \textit{figura 3.5} si può vedere un'anagrafica del Modello-Parte vista da stealth 3000 ed una descrizione dei Dati:
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
@@ -280,7 +277,7 @@ Di seguito in \textit{figura 6} si può vedere un'anagrafica del Modello-Parte v
 \end{figure}
 \newpage
 
-Dati di Testata:
+In \textit{tabella 3.8} vediamo i Dati di Testata dei Modelli-Parte, ovvero il blocco principale usato come filtro di ricerca o inserimento dei dati primari:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -295,8 +292,8 @@ Dati di Testata:
 	\caption{Modello-Parte: Dati di Testata}
 
 \end{longtable}
-
-Dati di Base:
+\newpage
+In \textit{tabella 3.9} vediamo i Dati di Base dell'anagrafica dei Modelli-Parte, ovvero il blocco principale di dati di dettaglio:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -316,10 +313,10 @@ Dati di Base:
 
 	Classe/Sottoclasse &  \begin{tabular}{@{}@{}c@{}@{}@{}} Classificazione statistica del modello,\\  utilizzabile in stampe e selezioni opertive\\ nelle più diverse funzioni per richiamare\\   più modelli appartenenti alla\\  stessa Classe/sottoclasse.  \end{tabular}\\ \hline    
 
-	\caption{Parte: Dati base}
+	\caption{Modello-Parte: Dati base}
 
 \end{longtable}
-\subsubsection{Listini di Vendita}
+\subsection{Listini di Vendita}
 L'obiettivo della gestione dei Listini di vendita è la definizione dei Prezzi di vendita dei Prodotti e di quant’altro (purchè codificato), oggetto di transazione onerosa nei confronti di Clienti, in funzione di:
 \begin{itemize}
 \item Stagione
@@ -333,18 +330,18 @@ ed eventualmente di una specifica
 \item Linea di vendita \textbf{(Business Line)}
 \end{itemize}
 nell’ambito del Marchio di appartenenza.\\
-Ci potrebbero essere dei Listini di Vendita importati da sistemi esterni che ne gestiscono il calcolo, la gestione e la sincronizzazione. Tali Listini non possono perciò essere modificati con le procedure qui di seguito descritte. La loro gestione è quindi demandata al sistema che li ha generati.\\
-Di seguito in \textit{figura 7} possiamo vedere un'anagrafica di gestione Stealth 3000 per i Listini di Vendita, con la descrizione dei dati principali.\\
+Ci potrebbero essere dei Listini di Vendita importati da sistemi esterni che ne gestiscono il calcolo, la gestione e la sincronizzazione. \\Tali Listini non possono perciò essere modificati con le procedure qui di seguito descritte. La loro gestione è quindi demandata al sistema che li ha generati.\\
+Di seguito in \textit{figura 3.6} possiamo vedere un'anagrafica di gestione Stealth 3000 per i Listini di Vendita, con la descrizione dei dati principali.\\
 
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
-\includegraphics[scale=0.90]{img/Listino.png}
+\includegraphics[scale=0.80]{img/Listino.png}
 \caption{Anagrafica Listino di Vendita}
 \end{figure}
 \newpage
 
-Dati di Testata:
+In \textit{tabella 3.10} vediamo i Dati di Testata dei Listini di Vendita, ovvero il blocco principale usato come filtro di ricerca o inserimento dei dati primari:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -367,7 +364,8 @@ Dati di Testata:
 	\caption{Listino di Vendita: Dati di Testata}
 
 \end{longtable}
-Righe di listino
+\newpage
+In \textit{tabella 3.11} vediamo i dati delle Righe di Listino, ovvero il blocco principale di dati di dettaglio:
 \begin{longtable}{| c | c |}%{| p{.20\textwidth} | p{.80\textwidth} |}
 	
 	\hline
@@ -416,41 +414,42 @@ Righe di listino
 
 \end{longtable}
 \newpage
-\subsection{Oracle PL/SQL Developer}
+\section{Oracle PL/SQL Developer}
 PL/SQL Developer è un \textbf{\textit{IDE\ped{g}}} creato per sviluppare unità di programma memorizzato in un database Oracle.\\
-SQL nasce come linguaggio per interrogazioni ad un database, che siano di estrazione o modifica dati, ma non permette di manipolare i dati in maniera estensiva, caratteristica invece di un linguaggio procedurale; istruzioni condizionali (IF ELSE) e cicli di iterazione, oltre a creazione di variabili sono le fondamenta alla base di programmi ed algoritmi complessi, ed è questo il vantaggio di PL/SQL.\\
-\subsubsection{Scrittura di un programma PL/SQL}
+SQL nasce come linguaggio per interrogazioni ad un database, che siano di estrazione o modifica dati, ma non permette di manipolare i dati in maniera estensiva, caratteristica invece di un linguaggio procedurale; istruzioni condizionali (IF ELSE) e cicli di iterazione, oltre a creazione di variabili sono le fondamenta alla base di programmi ed algoritmi complessi, ed è questo il vantaggio di PL/SQL.\cite{plsql}
+\subsection{Scrittura di un programma PL/SQL}
 PL/SQL permette di creare script principalmente come funzioni, procedure oppure \textbf{\textit{package\ped{g}}} che le contengono. Tutte le unità di programma sono accessibili da altre funzioni all'interno dello stesso database se appartengono allo stesso utente di accesso.\\
 Il codice PL/SQL ha una struttura specifica, organizzata a "blocchi" nel formato:\\ \textbf{BEGIN}\newline [content] \\ \textbf{exception}\newline [exception handling]\\ \textbf{END};\\ Questo formato viene utilizzato all'interno di procedure e funzioni, e permette di utilizzare i costrutti di base dei linguaggi procedurali, come i cicli (for, while...) e istruzioni condizionali, oltre alla manipolazione delle variabili. Queste sono dichiarabili solo alla definizione di un programma, in una sezione presente appena dopo aver scritto il nome di una funzione o procedura, ma prima del comando \textbf{BEGIN}, nel formato\\ \textbf{Procedure/Function} <Nome procedura o funzione>(parametri) \textbf{IS}\newline [elenco variabili]\\ \textbf{BEGIN}\newline [content]\\ \textbf{exception}\newline [exception handling]\\ \textbf{END Nome procedura o funzione};\\Le variabili sono visibili solo all'interno del blocco in cui sono dichiarate, in particolare le variabili dichiarate internamente ad una funzione sono visibili solo all'interno di essa, mentre le variabili definite all'interno del package sono visibili a tutte le funzioni contenute in esso, e vengono definite \textbf{globali}.\\
-Oltre alle variabili standard tipiche di altri linguaggi procedurali, una delle caratteristiche sicuramente più utili di PL/SQL è quella di poter creare dei \textbf{cursor}; questi sono una dichiarazione di una query di selezione che poi potrà essere eseguita all'interno del programma ed il suo contenuto analizzato, tramite in comando \textbf{fetch}, il quale estrae una riga ed in successione le altre ogni volta che viene chiamato. Il contenuto del cursore può essere estratto in \textit{n} variabili a seconda delle colonne generate dalla query, oppure in una variabile di tipo \textit{nome\_cursore}\textbf{\%rowtype} dalla quale è possibile estrarre ogni campo della riga del cursore scrivendo \textit{nome\_rowtype}.\textit{nome\_campo}.\\
-Una particolare forma di cursor sono i \textbf{refcursor} che permettono di trasformare una stringa di testo contenente una query, in una query vera e propria. L'utilità principale è quella di poter creare una query parametrica, nel senso che intere condizioni di filtro oppure dati da voler estrarre a seconda della richiesta, possibillità non concessa da una query standard. Una cosa a cui fare attenzione però è che finché si è in \textit{compile-time} non sarà altro che una stringa di test qualsiasi, ed eventuali errori nella stesura della query vengono scoperti soltanto in \textit{Run-time}, ovvero all'esecuzione del programma.\\
+Oltre alle variabili standard tipiche di altri linguaggi procedurali, una delle caratteristiche sicuramente più utili di PL/SQL è quella di poter creare dei \textbf{cursor}; questi sono una dichiarazione di una query di selezione che poi potrà essere eseguita all'interno del programma ed il suo contenuto analizzato, tramite in comando \textbf{fetch}, il quale estrae una riga ed in successione le altre ogni volta che viene chiamato. Il contenuto del cursore può essere estratto in \textit{n} variabili a seconda delle colonne generate dalla \textit{\textbf{query\ped{g}}}, oppure in una variabile di tipo \textit{nome\_cursore}\textbf{\%rowtype} dalla quale è possibile estrarre ogni campo della riga del cursore scrivendo \textit{nome\_rowtype}.\textit{nome\_campo}.\\
+Una particolare forma di cursor sono i \textbf{refcursor} che permettono di trasformare una stringa di testo contenente una query, in una query vera e propria. L'utilità principale è quella di poter creare una query parametrica, nel senso che intere condizioni di filtro oppure dati da voler estrarre a seconda della richiesta, possibillità non concessa da una query standard. Una cosa a cui fare attenzione però è che finché si è in \textit{\textbf{compile-time\ped{g}}} non sarà altro che una stringa di test qualsiasi, ed eventuali errori nella stesura della query vengono scoperti soltanto in \textit{\textbf{Run-time\ped{g}}}, ovvero all'esecuzione del programma.\\
 L'accesso alle funzioni di un package avviene tramite una definizione dello stesso chiamata Package Specification, ovvero la parte del package accessibile pubblicamente da qualunque altro package o funzione nel database a cui l'utente abbia accesso.\\
 Ci sono due tipologie di package, dal punto di vista logico:
 \begin{itemize}
 \item \textbf{Package di utility}: essi hanno nella loro \textit{package specification} il riferimento a tutte le funzioni implementate nel package, dovendo esse venire richiamate singolarmente a seconda dell'utilità, ad esempio \textbf{\textit{MyPackage.GetUserName()}} e \textbf{\textit{MyPackage.GetUserAge()}};
 \item \textbf{Package di funzione}: questi hanno solitamente nella \textit{package specification} solo una funzione di 'entrata', la quale richiama al suo interno, nell'implementazione del package, tutte le varie funzioni definite privatamente, ad esempio \textbf{\textit{MyPackage.GetUserLog()}} può essere una funzione pubblica, la quale richiama nella definizione le funzioni private \textbf{\textit{MyPackage.GetUserAccessId()}} e \textbf{\textit{MyPackage.GetUserAction()}}, non accessibili dall'esterno per eventuali architetture stabilite.
 \end{itemize}
-\subsubsection{Debug di un programma}
+\subsection{Debug di un programma}
 Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter eseguire il \textbf{\textit{debug\ped{g}}} di una funzione o di un intero package.\\
-Questa funzione permette, come la maggior parte dei compilatori nei linguaggi di programmazione, di analizzare l'esecuzione del programma passo per passo, con l'obiettivo di individuare criticità in determinati punti del codice in \textbf{Run-Time}. Diventa particolarmente utile nel caso si abbia a che fare con i refcursor spiegati in precedenza, ma ovviamente la funzionalità è importante in ogni parte del programma ed è parte fondamentale della verifica del codice nella sua interezza.\\
+Questa funzione permette, come la maggior parte dei compilatori nei linguaggi di programmazione, di analizzare l'esecuzione del programma passo per passo, con l'obiettivo di individuare criticità in determinati punti del codice in \textit{Run-Time}. Diventa particolarmente utile nel caso si abbia a che fare con i refcursor spiegati in precedenza, ma ovviamente la funzionalità è importante in ogni parte del programma ed è parte fondamentale della verifica del codice nella sua interezza.\\
 L'entrata in modalità di debug decompila il package, per cui bisogna prestare molta attenzione nell'utilizzo della funzione, in quanto un package che utilizza una funzione che viene decompilata per debug, andrà in errore nella sua esecuzione fino a che non viene ricompilato il sottoprogramma in stato di debug.
-\subsubsection{Piano di esecuzione}
+\subsection{Piano di esecuzione}
 Una funzionalità caratteristica e particolarmente utile di PL/SQL è quella di poter visualizzare il piano di esecuzione di una query per poterne analizzare i punti critici.\\
-Nella \textit{figura 8} è rappresentato il piano di esecuzione di una query del programma di export. Il piano di esecuzione è una funzionalità che permette di vedere l'ordine e le modalità di accesso alle tabelle da parte di PL/SQL Developer, in particolare che tipo di indici utilizza per la giunzione delle tabelle.
+Nella \textit{figura 3.7} è rappresentato il piano di esecuzione di una query del programma di export. Il piano di esecuzione è una funzionalità che permette di vedere l'ordine e le modalità di accesso alle tabelle da parte di PL/SQL Developer, in particolare che tipo di indici utilizza per la giunzione delle tabelle.
 \begin{figure}[!h]
 \thispagestyle{empty}
 \centering
 \includegraphics[scale=0.83]{img/Piano.png}
 \caption{Piano di esecuzione}
 \end{figure}
-Con riferimento alla (figura) possiamo prendere in analisi alcune delle funzionalità del piano di esecizione. Le modalità di giunzione tra le tabelle vengono specificate dal tipo di indice utilizzato; i vari tipi di indice sono:
+\newpage
+Con riferimento alla \textit{figura 3.7} possiamo prendere in analisi alcune delle funzionalità del piano di esecizione. Le modalità di giunzione tra le tabelle vengono specificate dal tipo di indice utilizzato; i vari tipi di indice sono:
 \begin{itemize}
-\item \textbf{Index Unique Scan}: Recupera un singolo id di riga (\textit{rowid}) dall'indice;
+\item \textbf{Index Unique Scan}: recupera un singolo id di riga (\textit{rowid}) dall'indice;
 \item \textbf{Index Range Scan}: recupera uno o più id di riga, in ordine crescente;
-\item \textbf{Index Full Scan}: Recupera tutti gli id di riga dall'indice, in ordine crescente;
-\item \textbf{Skip Scan}: Recupera gli id di riga da un indice usato come concatenazione di campi, senza usare le colonne effettive
+\item \textbf{Index Full Scan}: recupera tutti gli id di riga dall'indice, in ordine crescente;
+\item \textbf{Skip Scan}: recupera gli id di riga da un indice usato come concatenazione di campi, senza usare le colonne effettive
 \end{itemize}
-Il piano di esecuzione permette inoltre di vedere come cambiano le prestazioni, in termini di costo computazionale, al cambio di \textit{hint}, ovvero suggerimento all'ottimizzatore, specificato nella query con la dicitura /*+ nome\_hint */ subito dopo la keyword Select, nel casi si tratti di una query di selezione. I tipi di hint sono:
+Il piano di esecuzione permette inoltre di vedere come cambiano le prestazioni, in termini di costo computazionale, al cambio di \textit{hint}, ovvero suggerimento all'ottimizzatore, specificato nella query con la dicitura /*+ nome\_hint */ subito dopo la keyword \textit{Select}, nel casi si tratti di una query di selezione. I tipi di hint sono:
 \begin{itemize}
 \item \textbf{All Rows}: esplicita richiesta di utilizzare il costo computazionale più basso possibile
 \item \textbf{First Rows(n)}: esplicita richiesta di utilizzare il costo computazionale più basso possibile per il numero \textit{n} di righe. L'ottimizzatore ignora questo hint nelle query di \textit{Delete}, \textit{Update} e nelle query di \textit{Select} contenenti la seguente sintassi: operatore \textit{Distinct}, funzioni aggregate, clausole \textit{Group By}, \textit{Order By}, \textit{For Update} e operatori  di \textbf{Set} (\textit{Union}, \textit{Intersect}, \textit{Minus} ecc.)
@@ -459,7 +458,7 @@ Il piano di esecuzione permette inoltre di vedere come cambiano le prestazioni, 
 \subsection{Oracle Reports Builder}
 Uno degli strumenti utilizzati dall'azienda appartenente alla suit Oracle, è Oracle Reports Builder, che permette di disegnare dei report e fare in modo che i dati estratti derivino dal database di riferimento.\\
 Possono essere utilizzate tutte le funzioni sviluppate in quel database da PL/SQL e ciò permette una diretta relazione tra gli strumenti.\\
-Il software permette di inserire una o più query di selezione come modello di partenza \textit{figura 9} e mostra in real time il risultato all'interno del report costruito tramite l'editor apposito \textit{figura 10}
+Il software permette di inserire una o più query di selezione come modello di partenza \textit{figura 3.8} e mostra in real time il risultato all'interno del report costruito tramite l'editor apposito \textit{figura 3.9}
 \newpage
 \begin{figure}[!h]
 \thispagestyle{empty}
@@ -472,9 +471,9 @@ Il software permette di inserire una o più query di selezione come modello di p
 \includegraphics[scale=0.50]{img/Editor.jpg}
 \caption{Oracle Reports Builder: Editor}
 \end{figure}
-Viene data la possibilità di scrivere funzioni e \textit{trigger} come unità di programma in PL/SQL, richiamabili in ogni momento, il che permette di manipolare i dati estratti dalle query di modello.
+Viene data la possibilità di scrivere funzioni e \textit{trigger} come unità di programma in PL/SQL, richiamabili in ogni momento, il che permette di manipolare i dati estratti dalle query di modello.\cite{rep}
 
-\subsection{Tecnologia per l'aggiornamento}
+\section{Tecnologia per l'aggiornamento}
 I Database Link sono uno strumento messo a disposizione da Oracle per la comunicazione unidirezionale verso un altro database server, sotto forma di puntatori salvati come record all'interno di una \textbf{Data Dictionary Table}, ovvero tabelle di sola lettura che forniscono informazioni sul database. La comunicazione è unidirezionale nel senso che se un database Oracle possiede un dblink verso un altro database, non significa che dal database di destinazione si possa accedere al database Oracle.\\
 Il vantaggio principale nell'utilizzo dei Database Links, è che permette l'accesso ad un utente ad un database remoto i cui oggetti hanno privilegi impostati dal proprietario.\\
 Perché una connessione abbia via dblink abbia successo, è necessario che ogni database abbia un \textbf{Global Database Name} all'interno del dominio di rete. Tipicamente, un Database Link ha lo stesso nome del Globa Database Name del database remoto a cui fa riferimento.\\
@@ -493,3 +492,4 @@ Tramite Database Link non è permesso:
 \item Assegnarsi ruoli in un database remoto;
 \item eseguire join tra database che utilizzano connessioni server condivise.
 \end{itemize}
+\cite{dblink}

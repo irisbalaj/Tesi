@@ -1,4 +1,23 @@
-\documentclass[twoside,12pt]{article}
+\begin{filecontents*}{xmpl.bib}
+@misc{Mon,
+author    = "Moncler S.p.A.",
+    howpublished = "\url{http://aiweb.techfak.uni-bielefeld.de/content/bworld-robot-control-software/}"
+}
+@misc{plsql,
+author    = "Oracle PL/SQL Developer",
+    howpublished = "\url{https://blogs.oracle.com/oraclemagazine/building-with-blocks}"
+}
+@misc{rep,
+author    = "Oracle Reports Builder",
+    howpublished = "\url{https://docs.oracle.com/middleware/12213/formsandreports/build-reports/orbr\_concepts1001.htm\#RSBDR111}"
+}
+@misc{dblink,
+author    = "Oracle Database Links",
+    howpublished = "\url{https://docs.oracle.com/cd/B28359\_01/server.111/b28310/ds\_concepts002.htm\#ADMIN12083}"
+}
+\end{filecontents*}
+
+\documentclass[twoside,12pt]{report}
 
 \usepackage[italian]{babel}
 \usepackage[T1]{fontenc} 
@@ -7,7 +26,7 @@
 \usepackage[a4paper]{geometry}
 \usepackage{lipsum} 
 \usepackage{textcomp} % package che permette di inserire caratteri speciali
-\usepackage[colorlinks=true,linkcolor  = black]{hyperref}% package che permette insert di url e collegamenti
+
 
 \usepackage{fancyhdr} % package per header e footer
 
@@ -47,3 +66,7 @@
 \usepackage[toc,page]{appendix} %Appendice
 \usepackage{lastpage}
 \usepackage{listings}
+\usepackage{comment}
+
+\usepackage{natbib}
+\usepackage[colorlinks=true,linkcolor  = black]{hyperref}% package che permette insert di url e collegamenti

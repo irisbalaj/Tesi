@@ -1,6 +1,7 @@
 \input{layout/packages.tex}
+\hypersetup{colorlinks=false}
 \title{Tesi}
- 
+
 \begin{document}
 	\input{content/Prima_pagina.tex}
 	\newpage
@@ -14,16 +15,25 @@
 	\listoftables
 	\newpage
 	\pagenumbering{arabic}
+	\chapter{Introduzione}
 	\input{content/cap_1.tex}
 	\newpage
+	\chapter{Analisi e Pianificazione}
 	\input{content/cap_2.tex}
 	\newpage
+	\chapter{Studio delle Tecnologie}
 	\input{content/cap_3.tex}
 	\newpage
+	\chapter{Sviluppo}
 	\input{content/cap_4.tex}
 	\newpage
+	\chapter{Conclusioni}
 	\input{content/cap_5.tex}
 	\newpage
+	\appendix
+	\chapter{Glossario}
 	\input{content/glossario.tex}
-	\newpage
+	\bibliographystyle{unsrt}
+   \bibliography{xmpl}
+\addcontentsline{toc}{chapter}{Bibliografia}
 \end{document}
